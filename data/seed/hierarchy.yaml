@@ -1,0 +1,8 @@
+major: region
+minor: country
+file: country.csv
+children:
+  - minor: country-level-1+lk-province
+    file: province.csv
+    parent_column: country_id
+    relation: province

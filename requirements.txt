@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+aiohttp
+google-api-core
+python-dotenv
+pydantic
+protobuf
+pytest
+httpx
+pyyaml
