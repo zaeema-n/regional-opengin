@@ -10,49 +10,41 @@ from dotenv import load_dotenv
 
 load_dotenv(ROOT / ".env")
 
-from exception import BadRequestError
-from models import EntityCreate
-from scripts.seed_utils import SeedItem, load_seed_payloads
-from services import IngestionService
+from exception import NotFoundError
+from models import Entity, EntityCreate
+from scripts.seed_utils import load_seed_payloads
+from services import IngestionService, ReadService
 from utils import http_client, logger
 
 
-async def _create_or_skip(ingestion: IngestionService, entity: EntityCreate) -> str:
+async def _entity_exists(read: ReadService, entity_id: str) -> bool:
     try:
-        await ingestion.create_entity(entity)
-        return "created"
-    except BadRequestError as exc:
-        logger.warning(f"Skipping {entity.id}: {exc.detail}")
-        return "skipped"
+        matches = await read.get_entities(Entity(id=entity_id))
+    except NotFoundError:
+        return False
+    return any(match.id == entity_id for match in matches)
 
 
-async def _create_or_update(ingestion: IngestionService, entity: EntityCreate) -> str:
-    try:
-        await ingestion.create_entity(entity)
-        return "created"
-    except BadRequestError as exc:
-        logger.warning(
-            f"{entity.id} already exists, updating relationships: {exc.detail}"
-        )
+async def upsert_entity(
+    read: ReadService, ingestion: IngestionService, entity: EntityCreate
+) -> str:
+    if await _entity_exists(read, entity.id):
         await ingestion.update_entity(entity.id, entity)
         return "updated"
-
-
-async def seed_item(ingestion: IngestionService, item: SeedItem) -> str:
-    if item.update_on_conflict:
-        return await _create_or_update(ingestion, item.entity)
-    return await _create_or_skip(ingestion, item.entity)
+    await ingestion.create_entity(entity)
+    return "created"
 
 
 async def seed() -> None:
     items = load_seed_payloads()
+    read = ReadService()
     ingestion = IngestionService()
 
     await http_client.start()
     try:
         for item in items:
             entity = item.entity
-            status = await seed_item(ingestion, item)
+            status = await upsert_entity(read, ingestion, entity)
             logger.info(
                 f"{entity.kind.minor} {entity.id} ({entity.name.value}): {status}"
             )

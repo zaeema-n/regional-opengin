@@ -1,5 +1,6 @@
 import csv
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -104,15 +105,23 @@ def _entity_name(value: str) -> NameValue:
     return NameValue(startTime="", endTime="", value=value)
 
 
-def child_relation(name: str, related_entity_id: str) -> AddRelation:
-    """Build one parent→child edge, e.g. name="province", related_entity_id="LK-1"."""
+def child_relation(
+    name: str, related_entity_id: str, parent_entity_id: str
+) -> AddRelation:
+    """Build one parent→child edge, e.g. name="province", related_entity_id="LK-1".
+
+    key is the unique relationship id (not the relation name) so multiple
+    outgoing edges of the same type survive one OpenGIN update.
+    """
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    relation_id = f"{parent_entity_id}-{name}-{related_entity_id}"
     return AddRelation(
-        key=name,
+        key=relation_id,
         value=AddRelationValue(
             relatedEntityId=related_entity_id,
-            startTime="",
+            startTime=now,
             endTime="",
-            id="",
+            id=relation_id,
             name=name,
         ),
     )
@@ -124,10 +133,11 @@ def build_entity(
     relationships: list[AddRelation] | None = None,
 ) -> EntityCreate:
     """Build an OpenGIN create payload from one CSV row (id + name) and a kind."""
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     return EntityCreate(
         id=row["id"],
         kind=kind,
-        created="",
+        created=now,
         terminated="",
         name=_entity_name(row["name"]),
         metadata=[],
@@ -171,7 +181,9 @@ def collect_payloads(
             for child_row in rows_by_file[child.file]:
                 if child_row.get(child.parent_column) == row["id"]:
                     relationships.append(
-                        child_relation(child.relation, child_row["id"])
+                        child_relation(
+                            child.relation, child_row["id"], row["id"]
+                        )
                     )
         items.append(
             SeedItem(

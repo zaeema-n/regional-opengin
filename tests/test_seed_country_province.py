@@ -29,6 +29,7 @@ def test_seed_csvs_map_to_country_and_province_payloads():
     for province in provinces:
         assert province.kind.major == "region"
         assert province.name.value
+        assert province.created.endswith("Z")
         assert province.relationships == []
         assert province.metadata == []
         assert province.attributes == []
@@ -43,11 +44,15 @@ def test_seed_csvs_map_to_country_and_province_payloads():
     assert country.name.value == "Sri Lanka"
     assert country.kind.major == "region"
     assert country.kind.minor == "country"
+    assert country.created.endswith("Z")
     assert country.metadata == []
     assert country.attributes == []
 
     related_ids = [rel.value.relatedEntityId for rel in country.relationships]
     assert related_ids == PROVINCE_IDS
-    for rel in country.relationships:
-        assert rel.key == "province"
+    for rel, province_id in zip(country.relationships, PROVINCE_IDS, strict=True):
+        relation_id = f"LK-province-{province_id}"
+        assert rel.key == relation_id
+        assert rel.value.id == relation_id
         assert rel.value.name == "province"
+        assert rel.value.startTime.endswith("Z")
