@@ -6,3 +6,35 @@ children:
     file: province.csv
     parent_column: country_id
     relation: province
+    children:
+      - minor: country-level-2+lk-administrative-district
+        file: district.csv
+        parent_column: province_id
+        relation: administrative_district
+        children:
+          - minor: country-level-3+lk-divisional-secretariat-division
+            file: dsd.csv
+            parent_column: district_id
+            relation: divisional_secretariat_division
+            children:
+              - minor: country-level-4+lk-grama-niladhari-division
+                file: gnd.csv
+                parent_column: dsd_id
+                relation: grama_niladhari_division
+          - minor: country-level-3+lk-local-government
+            file: lg.csv
+            parent_column: district_id
+            relation: local_government
+          - minor: country-level-3+lk-medical-officer-of-health
+            file: moh.csv
+            parent_column: district_id
+            relation: medical_officer_of_health
+      - minor: country-level-2+lk-electoral-district
+        file: ed.csv
+        parent_column: province_id
+        relation: electoral_district
+        children:
+          - minor: country-level-3+lk-electoral-polling-division
+            file: pd.csv
+            parent_column: ed_id
+            relation: electoral_polling_division

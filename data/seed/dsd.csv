@@ -1,0 +1,332 @@
+id,name,district_id
+LK-1103,Colombo,LK-11
+LK-1106,Kolonnawa,LK-11
+LK-1109,Kaduwela,LK-11
+LK-1112,Homagama,LK-11
+LK-1115,Seethawaka,LK-11
+LK-1118,Padukka,LK-11
+LK-1121,Maharagama,LK-11
+LK-1124,Sri Jayawardanapura Kotte,LK-11
+LK-1127,Thimbirigasyaya,LK-11
+LK-1130,Dehiwala,LK-11
+LK-1131,Ratmalana,LK-11
+LK-1133,Moratuwa,LK-11
+LK-1136,Kesbewa,LK-11
+LK-1203,Negombo,LK-12
+LK-1206,Katana,LK-12
+LK-1209,Divulapitiya,LK-12
+LK-1212,Mirigama,LK-12
+LK-1215,Minuwangoda,LK-12
+LK-1218,Wattala,LK-12
+LK-1221,Ja-Ela,LK-12
+LK-1224,Gampaha,LK-12
+LK-1227,Attanagalla,LK-12
+LK-1230,Dompe,LK-12
+LK-1233,Mahara,LK-12
+LK-1236,Kelaniya,LK-12
+LK-1239,Biyagama,LK-12
+LK-1303,Panadura,LK-13
+LK-1306,Bandaragama,LK-13
+LK-1309,Horana,LK-13
+LK-1310,Ingiriya,LK-13
+LK-1312,Bulathsinhala,LK-13
+LK-1315,Madurawala,LK-13
+LK-1318,Millaniya,LK-13
+LK-1321,Kalutara,LK-13
+LK-1324,Beruwala,LK-13
+LK-1327,Dodangoda,LK-13
+LK-1330,Mathugama,LK-13
+LK-1333,Agalawatta,LK-13
+LK-1336,Palindanuwara,LK-13
+LK-1339,Walallavita,LK-13
+LK-2103,Thumpane,LK-21
+LK-2106,Pujapitiya,LK-21
+LK-2109,Akurana,LK-21
+LK-2112,Pathadumbara,LK-21
+LK-2115,Panvila,LK-21
+LK-2118,Udadumbara,LK-21
+LK-2121,Minipe,LK-21
+LK-2124,Medadumbara,LK-21
+LK-2127,Kundasale,LK-21
+LK-2130,Kandy Four Gravets & Gangawata Korale,LK-21
+LK-2133,Harispattuwa,LK-21
+LK-2134,Hatharaliyadda,LK-21
+LK-2136,Yatinuwara,LK-21
+LK-2139,Udunuwara,LK-21
+LK-2142,Doluwa,LK-21
+LK-2145,Pathahewaheta,LK-21
+LK-2148,Deltota,LK-21
+LK-2151,Udapalatha,LK-21
+LK-2154,Ganga Ihala Korale,LK-21
+LK-2157,Pasbage Korale,LK-21
+LK-2203,Galewela,LK-22
+LK-2206,Dambulla,LK-22
+LK-2209,Naula,LK-22
+LK-2212,Pallepola,LK-22
+LK-2215,Yatawatta,LK-22
+LK-2218,Matale,LK-22
+LK-2221,Ambanganga Korale,LK-22
+LK-2224,Laggala-Pallegama,LK-22
+LK-2227,Wilgamuwa,LK-22
+LK-2230,Rattota,LK-22
+LK-2233,Ukuwela,LK-22
+LK-2303,Kothmale,LK-23
+LK-2306,Hanguranketha,LK-23
+LK-2309,Walapane,LK-23
+LK-2312,Nuwara Eliya,LK-23
+LK-2315,Ambagamuwa,LK-23
+LK-3103,Bentota,LK-31
+LK-3106,Balapitiya,LK-31
+LK-3109,Karandeniya,LK-31
+LK-3112,Elpitiya,LK-31
+LK-3115,Niyagama,LK-31
+LK-3118,Thawalama,LK-31
+LK-3121,Neluwa,LK-31
+LK-3124,Nagoda,LK-31
+LK-3127,Baddegama,LK-31
+LK-3130,Welivitiya-Divithura,LK-31
+LK-3133,Ambalangoda,LK-31
+LK-3134,Gonapeenuwala,LK-31
+LK-3136,Hikkaduwa,LK-31
+LK-3139,Galle Four Gravets,LK-31
+LK-3142,Bope-Poddala,LK-31
+LK-3145,Akmeemana,LK-31
+LK-3148,Yakkalamulla,LK-31
+LK-3151,Imaduwa,LK-31
+LK-3154,Habaraduwa,LK-31
+LK-3203,Pitabeddara,LK-32
+LK-3206,Kotapola,LK-32
+LK-3209,Pasgoda,LK-32
+LK-3212,Mulatiyana,LK-32
+LK-3215,Athuraliya,LK-32
+LK-3218,Akuressa,LK-32
+LK-3221,Welipitiya,LK-32
+LK-3224,Malimbada,LK-32
+LK-3227,Kamburupitiya,LK-32
+LK-3230,Hakmana,LK-32
+LK-3233,Kirinda Puhulwella,LK-32
+LK-3236,Thihagoda,LK-32
+LK-3239,Weligama,LK-32
+LK-3242,Matara Four Gravets,LK-32
+LK-3245,Devinuwara,LK-32
+LK-3248,Dickwella,LK-32
+LK-3303,Sooriyawewa,LK-33
+LK-3306,Lunugamvehera,LK-33
+LK-3309,Thissamaharama,LK-33
+LK-3312,Hambantota,LK-33
+LK-3315,Ambalantota,LK-33
+LK-3318,Angunakolapelessa,LK-33
+LK-3321,Weeraketiya,LK-33
+LK-3324,Katuwana,LK-33
+LK-3325,Walasmulla,LK-33
+LK-3327,Okewela,LK-33
+LK-3330,Beliatta,LK-33
+LK-3333,Tangalle,LK-33
+LK-4103,Island North (Kayts),LK-41
+LK-4104,Karainagar,LK-41
+LK-4106,Valikamam West (Chankanai),LK-41
+LK-4109,Valikamam South-West (Sandilipay),LK-41
+LK-4112,Valikamam North (Tellipallai),LK-41
+LK-4115,Valikamam South (Uduvil),LK-41
+LK-4118,Valikamam East (Kopay),LK-41
+LK-4121,Vadamaradchi South-West (Karaveddy),LK-41
+LK-4124,Vadamaradchi East,LK-41
+LK-4127,Vadamaradchi North (Point Pedro),LK-41
+LK-4130,Thenmaradchi (Chavakachcheri),LK-41
+LK-4133,Nallur,LK-41
+LK-4136,Jaffna,LK-41
+LK-4139,Island South (Velanai),LK-41
+LK-4142,Delft,LK-41
+LK-4203,Mannar Town,LK-42
+LK-4206,Manthai West,LK-42
+LK-4209,Madhu,LK-42
+LK-4212,Nanattan,LK-42
+LK-4215,Musali,LK-42
+LK-4303,Vavuniya North,LK-43
+LK-4306,Vavuniya South,LK-43
+LK-4309,Vavuniya,LK-43
+LK-4312,Vengalacheddikulam,LK-43
+LK-4403,Thunukkai,LK-44
+LK-4406,Manthai East,LK-44
+LK-4409,Puthukkudiyiruppu,LK-44
+LK-4412,Oddusuddan,LK-44
+LK-4415,Maritimepattu,LK-44
+LK-4418,Welioya,LK-44
+LK-4503,Pachchilaipalli,LK-45
+LK-4506,Kandavalai,LK-45
+LK-4509,Karachchi,LK-45
+LK-4512,Poonakary,LK-45
+LK-5103,Koralai Pattu North (Vaharai),LK-51
+LK-5104,Koralai Pattu Central,LK-51
+LK-5106,Koralai Pattu  West (Oddamavadi),LK-51
+LK-5109,Koralai Pattu (Valachchenai),LK-51
+LK-5110,Koralai Pattu South (Kiran),LK-51
+LK-5112,Eravur Pattu,LK-51
+LK-5115,Eravur Town,LK-51
+LK-5118,Manmunai North,LK-51
+LK-5121,Manmunai West,LK-51
+LK-5124,Kattankudy,LK-51
+LK-5127,Manmunai Pattu (Araipattai),LK-51
+LK-5130,Manmunai South-West,LK-51
+LK-5133,Porativu Pattu,LK-51
+LK-5136,Manmunai South & Eruvil pattu,LK-51
+LK-5203,Dehiattakandiya,LK-52
+LK-5206,Padiyathalawa,LK-52
+LK-5209,Mahaoya,LK-52
+LK-5212,Uhana,LK-52
+LK-5215,Ampara,LK-52
+LK-5216,Navithanveli,LK-52
+LK-5218,Samanthurai,LK-52
+LK-5221,Kalmunai Tamil Division,LK-52
+LK-5224,Kalmunai,LK-52
+LK-5225,Sainthamaruthu,LK-52
+LK-5227,Karaitheevu,LK-52
+LK-5230,Ninthavur,LK-52
+LK-5233,Addalachchenai,LK-52
+LK-5234,Irakkamam,LK-52
+LK-5236,Akkaraipattu,LK-52
+LK-5239,Alayadiwembu,LK-52
+LK-5242,Damana,LK-52
+LK-5245,Thirukkovil,LK-52
+LK-5248,Pothuvil,LK-52
+LK-5251,Lahugala,LK-52
+LK-5303,Padavi Sri Pura,LK-53
+LK-5306,Kuchchaveli,LK-53
+LK-5309,Gomarankadawala,LK-53
+LK-5312,Morawewa,LK-53
+LK-5315,Trincomalee Town and Gravets,LK-53
+LK-5318,Thambalagamuwa,LK-53
+LK-5321,Kanthale,LK-53
+LK-5324,Kinniya,LK-53
+LK-5327,Muttur,LK-53
+LK-5330,Seruvila,LK-53
+LK-5333,Verugal (Eachchilampattu),LK-53
+LK-6103,Giribawa,LK-61
+LK-6106,Galgamuwa,LK-61
+LK-6109,Ehetuwewa,LK-61
+LK-6112,Ambanpola,LK-61
+LK-6115,Kotavehera,LK-61
+LK-6118,Rasnayakapura,LK-61
+LK-6121,Nikaweratiya,LK-61
+LK-6124,Maho,LK-61
+LK-6127,Polpithigama,LK-61
+LK-6130,Ibbagamuwa,LK-61
+LK-6133,Ganewatta,LK-61
+LK-6136,Wariyapola,LK-61
+LK-6139,Kobeigane,LK-61
+LK-6142,Bingiriya,LK-61
+LK-6145,Panduwasnuwara West,LK-61
+LK-6148,Panduwasnuwara East,LK-61
+LK-6149,Bamunakotuwa,LK-61
+LK-6151,Maspotha,LK-61
+LK-6154,Kurunegala,LK-61
+LK-6157,Mallawapitiya,LK-61
+LK-6160,Mawathagama,LK-61
+LK-6163,Rideegama,LK-61
+LK-6166,Weerambugedara,LK-61
+LK-6169,Kuliyapitiya East,LK-61
+LK-6172,Kuliyapitiya West,LK-61
+LK-6175,Udubaddawa,LK-61
+LK-6178,Pannala,LK-61
+LK-6181,Narammala,LK-61
+LK-6184,Alawwa,LK-61
+LK-6187,Polgahawela,LK-61
+LK-6203,Kalpitiya,LK-62
+LK-6206,Vanathawilluwa,LK-62
+LK-6209,Karuwalagaswewa,LK-62
+LK-6212,Nawagattegama,LK-62
+LK-6215,Puttalam,LK-62
+LK-6218,Mundel,LK-62
+LK-6221,Mahakumbukkadawala,LK-62
+LK-6224,Anamaduwa,LK-62
+LK-6227,Pallama,LK-62
+LK-6230,Arachchikattuwa,LK-62
+LK-6233,Chilaw,LK-62
+LK-6236,Madampe,LK-62
+LK-6239,Mahawewa,LK-62
+LK-6242,Nattandiya,LK-62
+LK-6245,Wennappuwa,LK-62
+LK-6248,Dankotuwa,LK-62
+LK-7103,Padaviya,LK-71
+LK-7106,Kebithigollewa,LK-71
+LK-7109,Medawachchiya,LK-71
+LK-7112,Mahawilachchiya,LK-71
+LK-7115,Nuwaragam Palatha Central,LK-71
+LK-7118,Rambewa,LK-71
+LK-7121,Kahatagasdigiliya,LK-71
+LK-7124,Horowpothana,LK-71
+LK-7127,Galenbindunuwewa,LK-71
+LK-7130,Mihinthale,LK-71
+LK-7133,Nuwaragam Palatha East,LK-71
+LK-7136,Nachchaduwa,LK-71
+LK-7139,Nochchiyagama,LK-71
+LK-7142,Rajanganaya,LK-71
+LK-7145,Thambuttegama,LK-71
+LK-7148,Thalawa,LK-71
+LK-7151,Thirappane,LK-71
+LK-7154,Kekirawa,LK-71
+LK-7157,Palugaswewa,LK-71
+LK-7160,Ipalogama,LK-71
+LK-7163,Galnewa,LK-71
+LK-7166,Palagala,LK-71
+LK-7203,Hingurakgoda,LK-72
+LK-7206,Medirigiriya,LK-72
+LK-7209,Lankapura,LK-72
+LK-7210,Welikanda,LK-72
+LK-7212,Dimbulagala,LK-72
+LK-7215,Thamankaduwa,LK-72
+LK-7218,Elahera,LK-72
+LK-8103,Mahiyanganaya,LK-81
+LK-8106,Rideemaliyadda,LK-81
+LK-8109,Meegahakivula,LK-81
+LK-8112,Kandaketiya,LK-81
+LK-8115,Soranathota,LK-81
+LK-8118,Passara,LK-81
+LK-8119,Lunugala,LK-81
+LK-8121,Badulla,LK-81
+LK-8124,Hali-Ela,LK-81
+LK-8127,Uva Paranagama,LK-81
+LK-8130,Welimada,LK-81
+LK-8133,Bandarawela,LK-81
+LK-8136,Ella,LK-81
+LK-8139,Haputale,LK-81
+LK-8142,Haldummulla,LK-81
+LK-8203,Bibile,LK-82
+LK-8206,Madulla,LK-82
+LK-8209,Medagama,LK-82
+LK-8212,Siyambalanduwa,LK-82
+LK-8215,Moneragala,LK-82
+LK-8218,Badalkumbura,LK-82
+LK-8221,Wellawaya,LK-82
+LK-8224,Buttala,LK-82
+LK-8227,Katharagama,LK-82
+LK-8230,Thanamalvila,LK-82
+LK-8233,Sevanagala,LK-82
+LK-9103,Eheliyagoda,LK-91
+LK-9106,Kuruvita,LK-91
+LK-9109,Kiriella,LK-91
+LK-9112,Ratnapura,LK-91
+LK-9115,Imbulpe,LK-91
+LK-9118,Balangoda,LK-91
+LK-9121,Opanayake,LK-91
+LK-9124,Pelmadulla,LK-91
+LK-9127,Elapatha,LK-91
+LK-9130,Ayagama,LK-91
+LK-9133,Kalawana,LK-91
+LK-9136,Nivithigala,LK-91
+LK-9139,Kahawatta,LK-91
+LK-9142,Godakawela,LK-91
+LK-9145,Weligepola,LK-91
+LK-9148,Embilipitiya,LK-91
+LK-9151,Kolonna,LK-91
+LK-9203,Rambukkana,LK-92
+LK-9206,Mawanella,LK-92
+LK-9209,Aranayaka,LK-92
+LK-9212,Kegalle,LK-92
+LK-9215,Galigamuwa,LK-92
+LK-9218,Warakapola,LK-92
+LK-9221,Ruwanwella,LK-92
+LK-9224,Bulathkohupitiya,LK-92
+LK-9227,Yatiyanthota,LK-92
+LK-9230,Dehiovita,LK-92
+LK-9233,Deraniyagala,LK-92

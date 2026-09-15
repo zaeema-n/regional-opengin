@@ -1,0 +1,183 @@
+id,name,ed_id
+EC-01A,Colombo North,EC-01
+EC-01B,Colombo Central,EC-01
+EC-01C,Borella,EC-01
+EC-01D,Colombo East,EC-01
+EC-01E,Colombo West,EC-01
+EC-01F,Dehiwala,EC-01
+EC-01G,Ratmalana,EC-01
+EC-01H,Kolonnawa,EC-01
+EC-01I,Kotte,EC-01
+EC-01J,Kaduwela,EC-01
+EC-01K,Avissawella,EC-01
+EC-01L,Homagama,EC-01
+EC-01M,Maharagama,EC-01
+EC-01N,Kesbewa,EC-01
+EC-01O,Moratuwa,EC-01
+EC-01P,Postal Votes Colombo,EC-01
+EC-02A,Wattala,EC-02
+EC-02B,Negombo,EC-02
+EC-02C,Katana,EC-02
+EC-02D,Divulapitiya,EC-02
+EC-02E,Mirigama,EC-02
+EC-02F,Minuwangoda,EC-02
+EC-02G,Attanagalla,EC-02
+EC-02H,Gampaha,EC-02
+EC-02I,Ja Ela,EC-02
+EC-02J,Mahara,EC-02
+EC-02K,Dompe,EC-02
+EC-02L,Biyagama,EC-02
+EC-02M,Kelaniya,EC-02
+EC-02P,Postal Votes Gampaha,EC-02
+EC-03A,Panadura,EC-03
+EC-03B,Bandaragama,EC-03
+EC-03C,Horana,EC-03
+EC-03D,Bulathsinhala,EC-03
+EC-03E,Mathugama,EC-03
+EC-03F,Kalutara,EC-03
+EC-03G,Beruwala,EC-03
+EC-03H,Agalawatta,EC-03
+EC-03P,Postal Votes Kalutara,EC-03
+EC-04A,Galagedara,EC-04
+EC-04B,Harispattuwa,EC-04
+EC-04C,Pathadumbara,EC-04
+EC-04D,Ududumbara,EC-04
+EC-04E,Teldeniya,EC-04
+EC-04F,Kundasale,EC-04
+EC-04G,Hewaheta,EC-04
+EC-04H,Senkadagala,EC-04
+EC-04I,Mahanuwara,EC-04
+EC-04J,Yatinuwara,EC-04
+EC-04K,Udunuwara,EC-04
+EC-04L,Gampola,EC-04
+EC-04M,Nawalapitiya,EC-04
+EC-04P,Postal Votes Kandy,EC-04
+EC-05A,Dambulla,EC-05
+EC-05B,Laggala,EC-05
+EC-05C,Matale,EC-05
+EC-05D,Rattota,EC-05
+EC-05P,Postal Votes Matale,EC-05
+EC-06A,Nuwara Eliya Maskeliya,EC-06
+EC-06B,Kothmale,EC-06
+EC-06C,Hanguranketha,EC-06
+EC-06D,Walapane,EC-06
+EC-06P,Postal Votes Nuwara-Eliya,EC-06
+EC-07A,Balapitiya,EC-07
+EC-07B,Ambalangoda,EC-07
+EC-07C,Karandeniya,EC-07
+EC-07D,Bentara Elpitiya,EC-07
+EC-07E,Hiniduma,EC-07
+EC-07F,Baddegama,EC-07
+EC-07G,Ratgama,EC-07
+EC-07H,Galle,EC-07
+EC-07I,Akmeemana,EC-07
+EC-07J,Habaraduwa,EC-07
+EC-07P,Postal Votes Galle,EC-07
+EC-08A,Deniyaya,EC-08
+EC-08B,Hakmana,EC-08
+EC-08C,Akuressa,EC-08
+EC-08D,Kamburupitiya,EC-08
+EC-08E,Devinuwara,EC-08
+EC-08F,Matara,EC-08
+EC-08G,Weligama,EC-08
+EC-08P,Postal Votes Matara,EC-08
+EC-09A,Mulkirigala,EC-09
+EC-09B,Beliatta,EC-09
+EC-09C,Tangalle,EC-09
+EC-09D,Thissamaharama,EC-09
+EC-09P,Postal Votes Hambantota,EC-09
+EC-10A,Kayts,EC-10
+EC-10B,Vaddukoddai,EC-10
+EC-10C,Kankesanthurai,EC-10
+EC-10D,Manipay,EC-10
+EC-10E,Kopay,EC-10
+EC-10F,Udupiddy,EC-10
+EC-10G,Point Pedro,EC-10
+EC-10H,Chavakachcheri,EC-10
+EC-10I,Nallur,EC-10
+EC-10J,Jaffna,EC-10
+EC-10K,Kilinochchi,EC-10
+EC-10P,Postal Votes Jaffna,EC-10
+EC-11A,Mannar,EC-11
+EC-11B,Vavuniya,EC-11
+EC-11C,Mullaitivu,EC-11
+EC-11P,Postal Votes Vanni,EC-11
+EC-12A,Kalkudah,EC-12
+EC-12B,Batticaloa,EC-12
+EC-12C,Paddiruppu,EC-12
+EC-12P,Postal Votes Batticaloa,EC-12
+EC-13A,Ampara,EC-13
+EC-13B,Samanthurai,EC-13
+EC-13C,Kalmunai,EC-13
+EC-13D,Pothuvil,EC-13
+EC-13P,Postal Votes Digamadulla,EC-13
+EC-14A,Seruvila,EC-14
+EC-14B,Trincomalee,EC-14
+EC-14C,Muttur,EC-14
+EC-14P,Postal Votes Trincomalee,EC-14
+EC-15A,Galgamuwa,EC-15
+EC-15B,Nikaweratiya,EC-15
+EC-15C,Yapahuwa,EC-15
+EC-15D,Hiriyala,EC-15
+EC-15E,Wariyapola,EC-15
+EC-15F,Panduwasnuwara,EC-15
+EC-15G,Bingiriya,EC-15
+EC-15H,Katugampola,EC-15
+EC-15I,Kuliyapitiya,EC-15
+EC-15J,Dambadeniya,EC-15
+EC-15K,Polgahawela,EC-15
+EC-15L,Kurunegala,EC-15
+EC-15M,Mawathagama,EC-15
+EC-15N,Dodangaslanda,EC-15
+EC-15P,Postal Votes Kurunegala,EC-15
+EC-16A,Puttalam,EC-16
+EC-16B,Anamaduwa,EC-16
+EC-16C,Chilaw,EC-16
+EC-16D,Nattandiya,EC-16
+EC-16E,Wennappuwa,EC-16
+EC-16P,Postal Votes Puttalam,EC-16
+EC-17A,Medawachchiya,EC-17
+EC-17B,Horowpothana,EC-17
+EC-17C,Anuradhapura East,EC-17
+EC-17D,Anuradhapura West,EC-17
+EC-17E,Kalawewa,EC-17
+EC-17F,Mihinthale,EC-17
+EC-17G,Kekirawa,EC-17
+EC-17P,Postal Votes Anuradhapura,EC-17
+EC-18A,Minneriya,EC-18
+EC-18B,Medirigiriya,EC-18
+EC-18C,Polonnaruwa,EC-18
+EC-18P,Postal Votes Polonnaruwa,EC-18
+EC-19A,Mahiyanganaya,EC-19
+EC-19B,Viyaluwa,EC-19
+EC-19C,Passara,EC-19
+EC-19D,Badulla,EC-19
+EC-19E,Hali Ela,EC-19
+EC-19F,Uva Paranagama,EC-19
+EC-19G,Welimada,EC-19
+EC-19H,Bandarawela,EC-19
+EC-19I,Haputale,EC-19
+EC-19P,Postal Votes Badulla,EC-19
+EC-20A,Bibile,EC-20
+EC-20B,Monaragala,EC-20
+EC-20C,Wellawaya,EC-20
+EC-20P,Postal Votes Moneragala,EC-20
+EC-21A,Eheliyagoda,EC-21
+EC-21B,Ratnapura,EC-21
+EC-21C,Pelmadulla,EC-21
+EC-21D,Balangoda,EC-21
+EC-21E,Rakwana,EC-21
+EC-21F,Nivithigala,EC-21
+EC-21G,Kalawana,EC-21
+EC-21H,Kolonna,EC-21
+EC-21P,Postal Votes Ratnapura,EC-21
+EC-22A,Dedigama,EC-22
+EC-22B,Galigamuwa,EC-22
+EC-22C,Kegalle,EC-22
+EC-22D,Rambukkana,EC-22
+EC-22E,Mawanella,EC-22
+EC-22F,Aranayaka,EC-22
+EC-22G,Yatiyanthota,EC-22
+EC-22H,Ruwanwella,EC-22
+EC-22I,Deraniyagala,EC-22
+EC-22P,Postal Votes Kegalle,EC-22

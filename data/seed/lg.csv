@@ -1,0 +1,339 @@
+id,name,district_id
+LG-11031,Colombo MC,LK-11
+LG-11061,Kolonnawa UC,LK-11
+LG-11062,Kotikawatta - Mulleriyawa PS,LK-11
+LG-11090,Kaduwela MC,LK-11
+LG-11121,Homagama PS,LK-11
+LG-11151,Seethawaka PS,LK-11
+LG-11152,Seethawakapura UC,LK-11
+LG-11210,Maharagama UC,LK-11
+LG-11240,Sri Jayawardanapura Kotte MC,LK-11
+LG-11301,Dehiwala - Mount Lavinia MC,LK-11
+LG-11330,Moratuwa MC,LK-11
+LG-11361,Boralesgamuwa UC,LK-11
+LG-11362,Kesbewa UC,LK-11
+LG-12030,Negombo MC,LK-12
+LG-12061,Katana PS,LK-12
+LG-12062,Katunayake Seeduwa UC,LK-12
+LG-12090,Divulapitiya PS,LK-12
+LG-12120,Mirigama PS,LK-12
+LG-12151,Minuwangoda PS,LK-12
+LG-12152,Minuwangoda UC,LK-12
+LG-12181,Wattala Mabola UC,LK-12
+LG-12182,Wattala PS,LK-12
+LG-12211,Ja-Ela PS,LK-12
+LG-12212,Ja-Ela UC,LK-12
+LG-12241,Gampaha MC,LK-12
+LG-12242,Gampaha PS,LK-12
+LG-12270,Attanagalla PS,LK-12
+LG-12300,Dompe PS,LK-12
+LG-12330,Mahara PS,LK-12
+LG-12361,Kelaniya PS,LK-12
+LG-12362,Peliyagoda UC,LK-12
+LG-12390,Biyagama PS,LK-12
+LG-13031,Panadura PS,LK-13
+LG-13032,Panadura UC,LK-13
+LG-13060,Bandaragama PS,LK-13
+LG-13091,Horana PS,LK-13
+LG-13092,Horana UC,LK-13
+LG-13120,Bulathsinhala PS,LK-13
+LG-13150,Madurawala PS,LK-13
+LG-13180,Millaniya PS,LK-13
+LG-13211,Kalutara PS,LK-13
+LG-13212,Kalutara UC,LK-13
+LG-13241,Beruwala PS,LK-13
+LG-13242,Beruwala UC,LK-13
+LG-13270,Dodangoda PS,LK-13
+LG-13300,Mathugama PS,LK-13
+LG-13330,Agalawatta PS,LK-13
+LG-13360,Palindanuwara PS,LK-13
+LG-13390,Walallawita PS,LK-13
+LG-21031,Thumpane PS,LK-21
+LG-21060,Poojapitiya PS,LK-21
+LG-21090,Akurana PS,LK-21
+LG-21121,Kandy MC,LK-21
+LG-21122,Pathadumbara PS,LK-21
+LG-21123,Wattegama UC,LK-21
+LG-21150,Panvila PS,LK-21
+LG-21180,Udadumbara PS,LK-21
+LG-21210,Minipe PS,LK-21
+LG-21240,Medadumbara PS,LK-21
+LG-21270,Kundasale PS,LK-21
+LG-21301,Kan. Fo. Gra. & Gan. Kor. PS,LK-21
+LG-21331,Harispattuwa PS,LK-21
+LG-21361,Kadugannawa UC,LK-21
+LG-21362,Yatinuwara PS,LK-21
+LG-21390,Udunuwara PS,LK-21
+LG-21421,Udapalatha PS,LK-21
+LG-21451,Pathahewaheta PS,LK-21
+LG-21511,Gampola UC,LK-21
+LG-21540,Ganga Ihala Korale PS,LK-21
+LG-21571,Nawalapitiya UC,LK-21
+LG-21572,Pasbage Korale PS,LK-21
+LG-22030,Galewela PS,LK-22
+LG-22061,Dambulla MC,LK-22
+LG-22062,Dambulla PS,LK-22
+LG-22090,Naula PS,LK-22
+LG-22120,Pallepola PS,LK-22
+LG-22150,Yatawatta PS,LK-22
+LG-22181,Matale MC,LK-22
+LG-22182,Matale PS,LK-22
+LG-22210,Ambanganga Korale PS,LK-22
+LG-22241,Laggala-Pallegama PS,LK-22
+LG-22272,Wilgamuwa PS,LK-22
+LG-22300,Rattota PS,LK-22
+LG-22332,Ukuwela PS,LK-22
+LG-23030,Kothmale PS,LK-23
+LG-23060,Hanguranketha PS,LK-23
+LG-23090,Walapane PS,LK-23
+LG-23121,Nuwaraeliya MC,LK-23
+LG-23122,Nuwaraeliya PS,LK-23
+LG-23123,Talawakelelindula UC,LK-23
+LG-23151,Ambagamuwa PS,LK-23
+LG-23152,Hattondikoya UC,LK-23
+LG-31030,Bentota PS,LK-31
+LG-31060,Balapitiya PS,LK-31
+LG-31090,Karandeniya PS,LK-31
+LG-31120,Elpitiya PS,LK-31
+LG-31150,Niyagama PS,LK-31
+LG-31180,Thawalama PS,LK-31
+LG-31210,Neluwa PS,LK-31
+LG-31240,Nagoda PS,LK-31
+LG-31270,Baddegama PS,LK-31
+LG-31300,Welivitiya-Divithura PS,LK-31
+LG-31331,Ambalangoda PS,LK-31
+LG-31332,Ambalangoda UC,LK-31
+LG-31361,Hikkaduwa UC,LK-31
+LG-31362,Rajgama PS,LK-31
+LG-31391,Bope-Poddala PS,LK-31
+LG-31392,Galle MC,LK-31
+LG-31450,Akmeemana PS,LK-31
+LG-31480,Yakkalamulla PS,LK-31
+LG-31510,Imaduwa PS,LK-31
+LG-31540,Habaraduwa PS,LK-31
+LG-32030,Pitabeddara PS,LK-32
+LG-32060,Kotapola PS,LK-32
+LG-32090,Pasgoda PS,LK-32
+LG-32121,Mulatiyana PS,LK-32
+LG-32151,Athuraliya PS,LK-32
+LG-32180,Akuressa PS,LK-32
+LG-32211,Weligama PS,LK-32
+LG-32240,Malimbada PS,LK-32
+LG-32270,Kamburupitiya PS,LK-32
+LG-32300,Hakmana PS,LK-32
+LG-32330,Kirinda Puhulwella PS,LK-32
+LG-32360,Thihagoda PS,LK-32
+LG-32392,Weligama UC,LK-32
+LG-32421,Matara MC,LK-32
+LG-32422,Matara PS,LK-32
+LG-32451,Devinuwara PS,LK-32
+LG-32452,Dickwella PS,LK-32
+LG-33030,Sooriyawewa PS,LK-33
+LG-33060,Lunugamvehera PS,LK-33
+LG-33090,Thissamaharama PS,LK-33
+LG-33121,Hambantota PS,LK-33
+LG-33122,Hambantota UC,LK-33
+LG-33150,Ambalantota PS,LK-33
+LG-33180,Angunakolapelassa PS,LK-33
+LG-33211,Weeraketiya PS,LK-33
+LG-33241,Katuwana PS,LK-33
+LG-33300,Beliatta PS,LK-33
+LG-33331,Tangalle PS,LK-33
+LG-33332,Tangalle UC,LK-33
+LG-41030,Kayts PS,LK-41
+LG-41040,Karainagar PS,LK-41
+LG-41060,Valikamam West PS,LK-41
+LG-41090,Valikamam South West PS,LK-41
+LG-41120,Valikamam North PS,LK-41
+LG-41150,Valikamam South PS,LK-41
+LG-41180,Valikamam East PS,LK-41
+LG-41211,Vadamaradchy South West PS,LK-41
+LG-41212,Valvettithurai UC,LK-41
+LG-41241,Point Pedro PS,LK-41
+LG-41272,Point Pedro UC,LK-41
+LG-41301,Chavakachcheri PS,LK-41
+LG-41302,Chavakachcheri UC,LK-41
+LG-41331,Jaffna MC,LK-41
+LG-41332,Nallur PS,LK-41
+LG-41390,Velanai PS,LK-41
+LG-41421,Delft  PS,LK-41
+LG-41422,None,LK-41
+LG-42031,Mannar PS,LK-42
+LG-42032,Mannar UC,LK-42
+LG-42061,Manthai West PS,LK-42
+LG-42092,Nanaddan PS,LK-42
+LG-42150,Musali PS,LK-42
+LG-43030,Vavuniya North PS,LK-43
+LG-43060,Vavuniya South (Sinhala),LK-43
+LG-43091,Vavuniya South (Tamil),LK-43
+LG-43092,Vavuniya UC,LK-43
+LG-43120,Vengalacheddikulam PS,LK-43
+LG-44030,Thunukkai PS,LK-44
+LG-44060,Manthai East PS,LK-44
+LG-44091,Puthukudiyiruppu PS,LK-44
+LG-44150,Maritimepattu PS,LK-44
+LG-45030,Pachchilaipallai PS,LK-45
+LG-45061,Karachchi PS,LK-45
+LG-45120,Poonakary PS,LK-45
+LG-51030,Koralai Pattu North PS,LK-51
+LG-51041,Koralai Pattu PS,LK-51
+LG-51042,Koralai Pattu West PS,LK-51
+LG-51121,Eravur Pattu PS,LK-51
+LG-51122,Eravur TC,LK-51
+LG-51180,Batticaloa MC,LK-51
+LG-51210,Manmunai West PS,LK-51
+LG-51240,Kattankudy UC,LK-51
+LG-51270,Manmunai Pattu PS,LK-51
+LG-51300,Manmunai South West PS,LK-51
+LG-51330,Porativu Pattu PS,LK-51
+LG-51360,Manmunai South & Eruvil Pattu PS,LK-51
+LG-52030,Dehiattakandiya PS,LK-52
+LG-52060,Padiyathalawa PS,LK-52
+LG-52090,Mahaoya PS,LK-52
+LG-52120,Uhana PS,LK-52
+LG-52151,Ampara UC,LK-52
+LG-52152,Namaloya PS,LK-52
+LG-52161,Navithanveli PS,LK-52
+LG-52182,Sammanthurai PS,LK-52
+LG-52241,Kalmunai MC,LK-52
+LG-52270,Karaitivu PS,LK-52
+LG-52300,Nintavur PS,LK-52
+LG-52330,Addalachchenai PS,LK-52
+LG-52341,Irakkamam PS,LK-52
+LG-52361,Akkaraipattu MC,LK-52
+LG-52362,Akkaraipattu PS,LK-52
+LG-52363,Alayadiwembu PS,LK-52
+LG-52421,Damana PS,LK-52
+LG-52450,Thirukkovil PS,LK-52
+LG-52480,Pothuvil PS,LK-52
+LG-52510,Lahugala PS,LK-52
+LG-53031,Padavi Sri Pura PS,LK-53
+LG-53061,Kuchchaveli PS,LK-53
+LG-53090,Gomarankadawela PS,LK-53
+LG-53120,Morawewa PS,LK-53
+LG-53152,Seruvila PS,LK-53
+LG-53153,Trincomalee Town & Four Gravets PS,LK-53
+LG-53154,Trincomalee UC,LK-53
+LG-53180,Thampalagamuwa PS,LK-53
+LG-53210,Kanthale PS,LK-53
+LG-53241,Kinniya PS,LK-53
+LG-53242,Kinniya UC,LK-53
+LG-53272,Muttur PS,LK-53
+LG-53330,Verugal PS,LK-53
+LG-61030,Giribawa PS,LK-61
+LG-61061,Galgamuwa PS,LK-61
+LG-61121,Mahawa PS,LK-61
+LG-61151,Nikaweratiya PS,LK-61
+LG-61270,Polpithigama PS,LK-61
+LG-61301,Ibbagamuwa PS,LK-61
+LG-61361,Wariyapola PS,LK-61
+LG-61390,Kobeigane PS,LK-61
+LG-61420,Bingiriya PS,LK-61
+LG-61451,Panduwasnuwara PS,LK-61
+LG-61511,Kurunegala PS,LK-61
+LG-61541,Kurunegala MC,LK-61
+LG-61600,Mawathagama PS,LK-61
+LG-61631,Galnewa PS,LK-61
+LG-61632,Rideegama PS,LK-61
+LG-61661,Polgahawela PS,LK-61
+LG-61691,Kuliyapitiya PS,LK-61
+LG-61722,Kuliyapitiya UC,LK-61
+LG-61750,Udubaddawa PS,LK-61
+LG-61780,Pannala PS,LK-61
+LG-61810,Narammala PS,LK-61
+LG-61840,Alawwa PS,LK-61
+LG-62031,Kalpitiya PS,LK-62
+LG-62060,Vanathavilluwa PS,LK-62
+LG-62090,Karuwalagaswewa PS,LK-62
+LG-62120,Nawagattegama  PS,LK-62
+LG-62151,Puttalam PS,LK-62
+LG-62152,Puttalam UC,LK-62
+LG-62181,Arachchikattuwa PS,LK-62
+LG-62183,Mundel Lake,LK-62
+LG-62211,Anamaduwa PS,LK-62
+LG-62331,Chilaw PS,LK-62
+LG-62332,Chilaw UC,LK-62
+LG-62391,Nattandiya PS,LK-62
+LG-62451,Wennappuwa PS,LK-62
+LG-71030,Padaviya PS,LK-71
+LG-71060,Kebithigollewa PS,LK-71
+LG-71090,Medawachchiya PS,LK-71
+LG-71121,N. Palatha Central PS,LK-71
+LG-71151,Anuradhapura MC,LK-71
+LG-71180,Rambewa PS,LK-71
+LG-71210,Kahatagasdigiliya PS,LK-71
+LG-71240,Horowpothana PS,LK-71
+LG-71270,Galenbindunuwewa PS,LK-71
+LG-71302,Mihinthale PS,LK-71
+LG-71332,N. Palatha East PS,LK-71
+LG-71362,Thirappane PS,LK-71
+LG-71390,Nochchiyagama PS,LK-71
+LG-71420,Rajanganaya PS,LK-71
+LG-71452,Thalawa PS,LK-71
+LG-71541,Kekirawa PS,LK-71
+LG-71600,Ipalogama PS,LK-71
+LG-71660,Palagala PS,LK-71
+LG-72030,Hingurakgoda PS,LK-72
+LG-72060,Medirigiriya PS,LK-72
+LG-72090,Lankapura PS,LK-72
+LG-72100,Welikanda PS,LK-72
+LG-72120,Dimbulagala PS,LK-72
+LG-72150,Thamankaduwa PS,LK-72
+LG-72180,Elahera PS,LK-72
+LG-81030,Mahiyanganaya PS,LK-81
+LG-81060,Rideemaliyadda PS,LK-81
+LG-81090,Meegahakivula PS,LK-81
+LG-81120,Kandaketiya PS,LK-81
+LG-81150,Soranathota PS,LK-81
+LG-81180,Passara PS,LK-81
+LG-81190,Lunugala PS,LK-81
+LG-81211,Badulla MC,LK-81
+LG-81212,Badulla PS,LK-81
+LG-81240,Hali-Ela PS,LK-81
+LG-81270,Uva Paranagama PS,LK-81
+LG-81300,Welimada PS,LK-81
+LG-81331,Bandarawela MC,LK-81
+LG-81332,Bandarawela PS,LK-81
+LG-81362,Ella PS,LK-81
+LG-81391,Haputhale PS,LK-81
+LG-81392,Haputhale UC,LK-81
+LG-81420,Haldummulla PS,LK-81
+LG-82030,Bibile PS,LK-82
+LG-82060,Madulla PS,LK-82
+LG-82090,Medagama PS,LK-82
+LG-82120,Siyambalanduwa PS,LK-82
+LG-82150,Moneragala PS,LK-82
+LG-82180,Badalkumbura PS,LK-82
+LG-82210,Wellawaya PS,LK-82
+LG-82240,Buttala PS,LK-82
+LG-82270,Kataragama PS,LK-82
+LG-82301,Thanamalvila PS,LK-82
+LG-91030,Ehiliyagoda PS,LK-91
+LG-91061,Kuruvita PS,LK-91
+LG-91121,Ratnapura MC,LK-91
+LG-91122,Ratnapura PS,LK-91
+LG-91150,Imbulpe PS,LK-91
+LG-91181,Balangoda PS,LK-91
+LG-91182,Balangoda UC,LK-91
+LG-91211,Weligepola PS,LK-91
+LG-91240,Pelmadulla PS,LK-91
+LG-91271,Nivithigala PS,LK-91
+LG-91300,Ayagama PS,LK-91
+LG-91330,Kalawana PS,LK-91
+LG-91390,Kahawatta PS,LK-91
+LG-91420,Godakawela  PS,LK-91
+LG-91481,Embilipitiya PS,LK-91
+LG-91482,Embilipitiya UC,LK-91
+LG-91510,Kolonna PS,LK-91
+LG-92030,Rambukkana PS,LK-92
+LG-92060,Mawanella PS,LK-92
+LG-92090,Aranayaka PS,LK-92
+LG-92121,Kegalle PS,LK-92
+LG-92122,Kegalle UC,LK-92
+LG-92150,Galigamuwa PS,LK-92
+LG-92180,Warakapola PS,LK-92
+LG-92210,Ruwanwella PS,LK-92
+LG-92240,Bulathkohupitiya PS,LK-92
+LG-92270,Yatiyanthota PS,LK-92
+LG-92300,Dehiovita PS,LK-92
+LG-92330,Deraniyagala PS,LK-92
