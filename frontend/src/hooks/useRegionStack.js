@@ -283,15 +283,6 @@ export function useRegionStack() {
     return mergeChildGeojson(items)
   }, [dropdown, stack, childrenCache])
 
-  const hoverGeojson = useMemo(() => {
-    if (!hoveredChild) {
-      return null
-    }
-    return hasRenderableGeometry(hoveredChild.geojson)
-      ? hoveredChild.geojson
-      : null
-  }, [hoveredChild])
-
   return {
     stack,
     status,
@@ -302,7 +293,6 @@ export function useRegionStack() {
     selectedRegion,
     mapGeojson,
     outlineGeojson,
-    hoverGeojson,
     hoveredChild,
     openRelation,
     selectChild,

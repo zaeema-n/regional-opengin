@@ -6,3 +6,11 @@ body,
   height: 100%;
   margin: 0;
 }
+
+.leaflet-region-outlines-pane path {
+  transition:
+    fill 220ms ease,
+    fill-opacity 220ms ease,
+    stroke 220ms ease,
+    stroke-width 220ms ease;
+}

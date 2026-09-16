@@ -17,12 +17,24 @@ const OUTLINE_STYLE = {
   weight: 1,
   fillColor: '#94a3b8',
   fillOpacity: 0.08,
+  className: 'region-outline',
 }
 const HOVER_STYLE = {
   color: '#c2410c',
   weight: 3,
   fillColor: '#f97316',
   fillOpacity: 0.45,
+  className: 'region-outline',
+}
+
+function featureId(feature) {
+  return feature?.id ?? feature?.properties?.id ?? null
+}
+
+function outlineStyle(feature, hoveredId) {
+  return hoveredId && featureId(feature) === hoveredId
+    ? HOVER_STYLE
+    : OUTLINE_STYLE
 }
 
 function syncLayer(map, layerRef, geojson, { style, pane, fitBounds = false } = {}) {
@@ -42,18 +54,33 @@ function syncLayer(map, layerRef, geojson, { style, pane, fitBounds = false } = 
   if (fitBounds) {
     const bounds = layer.getBounds()
     if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [32, 32] })
+      map.flyToBounds(bounds, { padding: [32, 32], duration: 0.7 })
     }
   }
 }
 
-export default function RegionMap({ geojson, outlineGeojson, hoverGeojson }) {
+function paintHover(layer, hoveredId) {
+  if (!layer) {
+    return
+  }
+  layer.eachLayer((featureLayer) => {
+    featureLayer.setStyle(outlineStyle(featureLayer.feature, hoveredId))
+    if (hoveredId && featureId(featureLayer.feature) === hoveredId) {
+      featureLayer.bringToFront()
+    }
+  })
+}
+
+export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
   const selectedLayerRef = useRef(null)
   const outlineLayerRef = useRef(null)
-  const hoverLayerRef = useRef(null)
-  const previewFitRef = useRef(false)
+  const hoveredIdRef = useRef(hoveredId)
+
+  useEffect(() => {
+    hoveredIdRef.current = hoveredId
+  }, [hoveredId])
 
   useEffect(() => {
     if (mapRef.current || !containerRef.current) {
@@ -63,8 +90,6 @@ export default function RegionMap({ geojson, outlineGeojson, hoverGeojson }) {
     const map = L.map(containerRef.current, { zoomControl: false })
     map.createPane('region-outlines')
     map.getPane('region-outlines').style.zIndex = 410
-    map.createPane('region-hover')
-    map.getPane('region-hover').style.zIndex = 450
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -87,8 +112,6 @@ export default function RegionMap({ geojson, outlineGeojson, hoverGeojson }) {
       mapRef.current = null
       selectedLayerRef.current = null
       outlineLayerRef.current = null
-      hoverLayerRef.current = null
-      previewFitRef.current = false
     }
   }, [])
 
@@ -110,39 +133,15 @@ export default function RegionMap({ geojson, outlineGeojson, hoverGeojson }) {
       return
     }
     syncLayer(map, outlineLayerRef, outlineGeojson, {
-      style: OUTLINE_STYLE,
+      style: (feature) => outlineStyle(feature, hoveredIdRef.current),
       pane: 'region-outlines',
     })
+    paintHover(outlineLayerRef.current, hoveredIdRef.current)
   }, [outlineGeojson])
 
   useEffect(() => {
-    const map = mapRef.current
-    if (!map) {
-      return
-    }
-    syncLayer(map, hoverLayerRef, hoverGeojson, {
-      style: HOVER_STYLE,
-      pane: 'region-hover',
-    })
-    if (hoverLayerRef.current) {
-      const hoverBounds = hoverLayerRef.current.getBounds()
-      if (
-        hoverBounds.isValid() &&
-        !map.getBounds().contains(hoverBounds.getCenter())
-      ) {
-        previewFitRef.current = true
-        map.fitBounds(hoverBounds, { padding: [32, 32] })
-      }
-      return
-    }
-    if (previewFitRef.current && selectedLayerRef.current) {
-      previewFitRef.current = false
-      const selectedBounds = selectedLayerRef.current.getBounds()
-      if (selectedBounds.isValid()) {
-        map.fitBounds(selectedBounds, { padding: [32, 32] })
-      }
-    }
-  }, [hoverGeojson])
+    paintHover(outlineLayerRef.current, hoveredId)
+  }, [hoveredId])
 
   return <div ref={containerRef} className="h-full w-full" />
 }

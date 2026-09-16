@@ -12,7 +12,6 @@ export default function App() {
     hydrating,
     mapGeojson,
     outlineGeojson,
-    hoverGeojson,
     hoveredChild,
     openRelation,
     selectChild,
@@ -27,7 +26,7 @@ export default function App() {
       <RegionMap
         geojson={mapGeojson}
         outlineGeojson={outlineGeojson}
-        hoverGeojson={hoverGeojson}
+        hoveredId={hoveredChild?.id}
       />
       <NavPanel
         stack={stack}
