@@ -22,6 +22,33 @@ export function hasRenderableGeometry(geojson) {
   return false
 }
 
+function collectFeatures(geojson) {
+  if (!hasRenderableGeometry(geojson)) {
+    return []
+  }
+  if (geojson.type === 'FeatureCollection') {
+    return geojson.features.filter(Boolean)
+  }
+  return [geojson]
+}
+
+function mergeChildGeojson(items) {
+  const features = items.flatMap((item) => collectFeatures(item.geojson))
+  if (features.length === 0) {
+    return null
+  }
+  return { type: 'FeatureCollection', features }
+}
+
+function childrenHaveMapData(items) {
+  return items.some(
+    (item) =>
+      hasRenderableGeometry(item.geojson) ||
+      item.hasGeometry === true ||
+      item.hasGeometry === false,
+  )
+}
+
 function placeholderRegion(child) {
   return {
     id: child.id,
@@ -39,6 +66,7 @@ export function useRegionStack() {
   const [dropdown, setDropdown] = useState(null)
   const [childrenCache, setChildrenCache] = useState({})
   const [hydrating, setHydrating] = useState(false)
+  const [hoveredChild, setHoveredChild] = useState(null)
 
   const stackRef = useRef(stack)
   const cacheRef = useRef(childrenCache)
@@ -56,6 +84,7 @@ export function useRegionStack() {
     setError(null)
     setHydrating(false)
     setDropdown(null)
+    setHoveredChild(null)
     setStack([])
 
     getRootRegion()
@@ -102,16 +131,21 @@ export function useRegionStack() {
 
     const key = childrenKey(parent.region.id, relation)
     const cached = cacheRef.current[key]
-    if (cached) {
+    if (cached && childrenHaveMapData(cached)) {
       setDropdown({ stackIndex, relation, status: 'ready', error: null })
       return
     }
 
     const gen = ++childrenGen.current
-    setDropdown({ stackIndex, relation, status: 'loading', error: null })
+    setDropdown({
+      stackIndex,
+      relation,
+      status: cached ? 'ready' : 'loading',
+      error: null,
+    })
 
     try {
-      const data = await getRegionChildren(parent.region.id, relation)
+      const data = await getRegionChildren(parent.region.id, relation, true)
       const items = sortByName(data.items ?? [])
       if (gen !== childrenGen.current) {
         return
@@ -150,6 +184,7 @@ export function useRegionStack() {
     const gen = ++opGen.current
     setError(null)
     setDropdown(null)
+    setHoveredChild(null)
     setHydrating(true)
     setStack((prev) => {
       const next = [
@@ -194,6 +229,7 @@ export function useRegionStack() {
     opGen.current += 1
     setHydrating(false)
     setError(null)
+    setHoveredChild(null)
     setStack(frames.slice(0, -1))
     const key = childrenKey(parent.region.id, removed.relation)
     if (cacheRef.current[key]) {
@@ -216,6 +252,7 @@ export function useRegionStack() {
     setHydrating(false)
     setError(null)
     setDropdown(null)
+    setHoveredChild(null)
     setStack((prev) => prev.slice(0, 1))
   }, [])
 
@@ -231,6 +268,28 @@ export function useRegionStack() {
     return null
   }, [stack])
 
+  const outlineGeojson = useMemo(() => {
+    if (!dropdown || dropdown.status !== 'ready') {
+      return null
+    }
+    const parent = stack[dropdown.stackIndex]
+    if (!parent) {
+      return null
+    }
+    const items =
+      childrenCache[childrenKey(parent.region.id, dropdown.relation)] ?? []
+    return mergeChildGeojson(items)
+  }, [dropdown, stack, childrenCache])
+
+  const hoverGeojson = useMemo(() => {
+    if (!hoveredChild) {
+      return null
+    }
+    return hasRenderableGeometry(hoveredChild.geojson)
+      ? hoveredChild.geojson
+      : null
+  }, [hoveredChild])
+
   return {
     stack,
     status,
@@ -240,8 +299,12 @@ export function useRegionStack() {
     hydrating,
     selectedRegion,
     mapGeojson,
+    outlineGeojson,
+    hoverGeojson,
+    hoveredChild,
     openRelation,
     selectChild,
+    hoverChild: setHoveredChild,
     back,
     reset,
     retry: loadRoot,

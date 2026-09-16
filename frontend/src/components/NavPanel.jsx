@@ -7,10 +7,12 @@ function NavigationRow({
   nav,
   items,
   selectedId,
+  hoveredId,
   status,
   error,
   onOpen,
   onSelect,
+  onHover,
 }) {
   const showDropdown = Boolean(selectedId) || status !== 'idle'
 
@@ -53,23 +55,49 @@ function NavigationRow({
         <p className="mt-1 text-sm text-slate-500">No regions found.</p>
       )}
       {status !== 'loading' && items.length > 0 && (
-        <select
+        <div
           id={fieldId}
-          className={`mt-1 w-full rounded-md border bg-white px-2 py-2 text-sm text-slate-900 ${
+          role="listbox"
+          aria-label={nav.label}
+          className={`mt-1 max-h-56 overflow-auto rounded-md border bg-white py-1 ${
             selectedId ? 'border-blue-400' : 'border-slate-300'
           }`}
-          value={selectedId ?? ''}
-          onChange={(event) => onSelect(event.target.value)}
+          onMouseLeave={() => onHover(null)}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) {
+              onHover(null)
+            }
+          }}
         >
-          <option value="" disabled>
-            Select {nav.label.toLowerCase()}
-          </option>
-          {items.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
+          {items.map((item) => {
+            const selected = item.id === selectedId
+            const hovered = item.id === hoveredId
+            return (
+              <button
+                key={item.id}
+                type="button"
+                role="option"
+                aria-selected={selected}
+                className={`block w-full px-3 py-1.5 text-left text-sm ${
+                  selected
+                    ? 'bg-blue-100 font-medium text-blue-900'
+                    : hovered
+                      ? 'bg-blue-50 text-slate-900'
+                      : 'text-slate-900 hover:bg-blue-50'
+                }`}
+                onMouseEnter={() => onHover(item)}
+                onFocus={() => onHover(item)}
+                onClick={() => {
+                  if (item.id !== selectedId) {
+                    onSelect(item.id)
+                  }
+                }}
+              >
+                {item.name}
+              </button>
+            )
+          })}
+        </div>
       )}
     </div>
   )
@@ -82,8 +110,10 @@ export default function NavPanel({
   dropdown,
   childrenCache,
   hydrating,
+  hoveredChildId,
   onOpenRelation,
   onSelectChild,
+  onHoverChild,
   onBack,
   onReset,
   onRetry,
@@ -139,7 +169,7 @@ export default function NavPanel({
       {status === 'ready' && (
         <>
           <p className="mt-2 text-sm text-slate-500">
-            Choose a region type, then pick a name to zoom the map.
+            Choose a region type, then hover a name to preview it on the map and click to zoom in.
           </p>
           {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
           {stack.map((frame, index) => {
@@ -178,12 +208,14 @@ export default function NavPanel({
                       nav={nav}
                       items={items}
                       selectedId={isSelectedPath ? next.region.id : ''}
+                      hoveredId={hoveredChildId}
                       status={rowStatus}
                       error={isActive ? dropdown.error : null}
                       onOpen={() => onOpenRelation(index, nav.relation)}
                       onSelect={(childId) =>
                         onSelectChild(index, nav.relation, childId)
                       }
+                      onHover={onHoverChild}
                     />
                   )
                 })}

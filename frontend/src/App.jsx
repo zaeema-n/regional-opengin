@@ -11,8 +11,12 @@ export default function App() {
     childrenCache,
     hydrating,
     mapGeojson,
+    outlineGeojson,
+    hoverGeojson,
+    hoveredChild,
     openRelation,
     selectChild,
+    hoverChild,
     back,
     reset,
     retry,
@@ -20,7 +24,11 @@ export default function App() {
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-      <RegionMap geojson={mapGeojson} />
+      <RegionMap
+        geojson={mapGeojson}
+        outlineGeojson={outlineGeojson}
+        hoverGeojson={hoverGeojson}
+      />
       <NavPanel
         stack={stack}
         status={status}
@@ -28,8 +36,10 @@ export default function App() {
         dropdown={dropdown}
         childrenCache={childrenCache}
         hydrating={hydrating}
+        hoveredChildId={hoveredChild?.id}
         onOpenRelation={openRelation}
         onSelectChild={selectChild}
+        onHoverChild={hoverChild}
         onBack={back}
         onReset={reset}
         onRetry={retry}
