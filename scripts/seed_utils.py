@@ -18,6 +18,8 @@ class HierarchyNode:
 
     parent_column / relation live on the child: they tell the parent how to
     attach this node (e.g. province.csv country_id, edge name "province").
+    geojson is a path relative to data/seed/; missing or empty means no
+    geometry metadata for that level.
     """
 
     major: str
@@ -25,6 +27,7 @@ class HierarchyNode:
     file: str
     parent_column: str | None = None
     relation: str | None = None
+    geojson: str | None = None
     children: list["HierarchyNode"] = field(default_factory=list)
 
 
@@ -67,6 +70,7 @@ def parse_node(raw: dict, inherited_major: str = "") -> HierarchyNode:
         file=str(raw.get("file") or ""),
         parent_column=raw.get("parent_column") or None,
         relation=raw.get("relation") or None,
+        geojson=raw.get("geojson") or None,
         children=[parse_node(child, major) for child in (raw.get("children") or [])],
     )
 
