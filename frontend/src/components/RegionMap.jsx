@@ -8,9 +8,25 @@ const SRI_LANKA_BOUNDS = [
 ]
 const HIGHLIGHT_STYLE = {
   color: '#1d4ed8',
-  weight: 2,
+  weight: 3,
   fillColor: '#3b82f6',
   fillOpacity: 0.3,
+}
+
+function paintGeojson(map, layerRef, geojson) {
+  if (layerRef.current) {
+    map.removeLayer(layerRef.current)
+    layerRef.current = null
+  }
+  if (!geojson) {
+    return
+  }
+  const layer = L.geoJSON(geojson, { style: HIGHLIGHT_STYLE }).addTo(map)
+  layerRef.current = layer
+  const bounds = layer.getBounds()
+  if (bounds.isValid()) {
+    map.fitBounds(bounds, { padding: [32, 32] })
+  }
 }
 
 export default function RegionMap({ geojson }) {
@@ -34,7 +50,9 @@ export default function RegionMap({ geojson }) {
     const invalidate = () => map.invalidateSize()
     requestAnimationFrame(() => {
       map.invalidateSize()
-      map.fitBounds(SRI_LANKA_BOUNDS, { padding: [24, 24] })
+      if (!layerRef.current) {
+        map.fitBounds(SRI_LANKA_BOUNDS, { padding: [24, 24] })
+      }
     })
     window.addEventListener('resize', invalidate)
 
@@ -48,25 +66,10 @@ export default function RegionMap({ geojson }) {
 
   useEffect(() => {
     const map = mapRef.current
-    if (!map) {
+    if (!map || !geojson) {
       return
     }
-
-    if (layerRef.current) {
-      map.removeLayer(layerRef.current)
-      layerRef.current = null
-    }
-
-    if (!geojson) {
-      return
-    }
-
-    const layer = L.geoJSON(geojson, { style: HIGHLIGHT_STYLE }).addTo(map)
-    layerRef.current = layer
-    const bounds = layer.getBounds()
-    if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [32, 32] })
-    }
+    paintGeojson(map, layerRef, geojson)
     map.invalidateSize()
   }, [geojson])
 
