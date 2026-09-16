@@ -29,6 +29,8 @@ uvicorn main:app --reload
 - Health: `GET http://localhost:8000/health`
 - Docs: `http://localhost:8000/docs`
 
+Swagger Try it out will struggle (or fail to render) on responses that include GeoJSON — country and province polygons are large. Prefer `GET /v1/regions/{id}/children` without `include_geojson`, or inspect GeoJSON in the browser Network tab / curl instead of the Swagger response panel.
+
 This app forwards to OpenGIN:
 
 | Method | Path |

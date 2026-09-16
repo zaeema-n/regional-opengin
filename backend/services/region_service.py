@@ -1,4 +1,5 @@
 import asyncio
+import json
 from pathlib import Path
 
 from exception import BadRequestError, NotFoundError
@@ -25,8 +26,8 @@ def relation_label(relation: str) -> str:
 def extract_geojson(metadata) -> dict | None:
     """Find the geojson entry in an OpenGIN metadata payload.
 
-    Seed stores it as [{"key": "geojson", "value": FeatureCollection}]. The live
-    API may wrap that in body/metadata or use a dict keyed by "geojson".
+    Live OpenGIN returns {"geojson": "<protobuf StringValue JSON>"}. Seed-style
+    payloads may already be a FeatureCollection dict or [{key, value}].
     """
     if metadata is None:
         return None
@@ -53,12 +54,58 @@ def extract_geojson(metadata) -> dict | None:
 
 
 def _as_feature_collection(value) -> dict | None:
-    """Return value as a FeatureCollection; wrap a lone Feature if needed."""
+    """Decode protobuf if needed, then return a FeatureCollection dict."""
+    value = _decode_geojson_value(value)
     if not isinstance(value, dict):
         return None
     if value.get("type") == "Feature":
         return {"type": "FeatureCollection", "features": [value]}
     return value
+
+
+def _decode_geojson_value(value):
+    """Turn an OpenGIN geojson metadata value into a GeoJSON dict.
+
+    Live reads wrap the FeatureCollection JSON in google.protobuf.StringValue
+    ({typeUrl, value: hex}). Decode that with Util.decode_protobuf_attribute_name,
+    then json.loads. Already-decoded dicts pass through.
+    """
+    if isinstance(value, dict):
+        if value.get("type") in ("FeatureCollection", "Feature"):
+            return value
+        if _is_protobuf_envelope(value):
+            decoded = Util.decode_protobuf_attribute_name(json.dumps(value))
+            return _parse_json_object(decoded)
+        return value
+    if not isinstance(value, str):
+        return None
+    stripped = value.strip()
+    if not stripped:
+        return None
+    if _is_protobuf_envelope_text(stripped):
+        decoded = Util.decode_protobuf_attribute_name(stripped)
+        parsed = _parse_json_object(decoded)
+        if parsed is not None:
+            return parsed
+    return _parse_json_object(stripped)
+
+
+def _is_protobuf_envelope(value: dict) -> bool:
+    return "value" in value and bool(value.get("typeUrl") or value.get("type_url"))
+
+
+def _is_protobuf_envelope_text(value: str) -> bool:
+    return value.startswith("{") and ("typeUrl" in value or "type_url" in value)
+
+
+def _parse_json_object(raw: str | None):
+    if not raw or raw == "Unknown":
+        return None
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError:
+        return None
+    return parsed if isinstance(parsed, dict) else None
 
 
 def geojson_has_geometry(geojson) -> bool:

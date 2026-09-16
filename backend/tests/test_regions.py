@@ -1,7 +1,10 @@
 from unittest.mock import AsyncMock
+import binascii
+import json
 
 import pytest
 from fastapi.testclient import TestClient
+from google.protobuf.wrappers_pb2 import StringValue
 
 from main import app
 from models import Entity, Kind, Relation
@@ -253,3 +256,23 @@ def test_extract_geojson_missing():
     assert extract_geojson([]) is None
     assert extract_geojson({"source": "opengin"}) is None
     assert extract_geojson(None) is None
+
+
+def _protobuf_geojson_envelope(geojson: dict) -> dict:
+    """Match live OpenGIN metadata: protobuf StringValue hex inside {typeUrl, value}."""
+    sv = StringValue(value=json.dumps(geojson, separators=(",", ":")))
+    return {
+        "typeUrl": "type.googleapis.com/google.protobuf.StringValue",
+        "value": binascii.hexlify(sv.SerializeToString()).decode("ascii"),
+    }
+
+
+def test_extract_geojson_decodes_protobuf_string():
+    envelope = _protobuf_geojson_envelope(LK_GEOJSON)
+    metadata = {"geojson": json.dumps(envelope, separators=(",", ":"))}
+    assert extract_geojson(metadata) == LK_GEOJSON
+
+
+def test_extract_geojson_decodes_protobuf_dict():
+    metadata = {"geojson": _protobuf_geojson_envelope(LK_GEOJSON)}
+    assert extract_geojson(metadata) == LK_GEOJSON
