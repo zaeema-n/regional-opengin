@@ -258,6 +258,21 @@ export function useRegionStack() {
     setStack((prev) => prev.slice(0, 1))
   }, [])
 
+  const goTo = useCallback((stackIndex) => {
+    const frames = stackRef.current
+    if (stackIndex < 0 || stackIndex >= frames.length - 1) {
+      return
+    }
+    opGen.current += 1
+    setHydrating(false)
+    setError(null)
+    setDropdown(null)
+    setHoveredChild(null)
+    const nextStack = frames.slice(0, stackIndex + 1)
+    stackRef.current = nextStack
+    setStack(nextStack)
+  }, [])
+
   const selectedRegion = stack.at(-1)?.region ?? null
 
   const mapGeojson = useMemo(() => {
@@ -299,6 +314,7 @@ export function useRegionStack() {
     hoverChild: setHoveredChild,
     back,
     reset,
+    goTo,
     retry: loadRoot,
   }
 }

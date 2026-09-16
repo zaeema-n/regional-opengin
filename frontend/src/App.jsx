@@ -18,6 +18,7 @@ export default function App() {
     hoverChild,
     back,
     reset,
+    goTo,
     retry,
   } = useRegionStack()
 
@@ -41,6 +42,7 @@ export default function App() {
         onHoverChild={hoverChild}
         onBack={back}
         onReset={reset}
+        onGoTo={goTo}
         onRetry={retry}
       />
     </div>
