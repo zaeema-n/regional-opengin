@@ -2,7 +2,10 @@ import { useEffect, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-const SRI_LANKA_CENTER = [7.8731, 80.7718]
+const SRI_LANKA_BOUNDS = [
+  [5.85, 79.4],
+  [9.9, 82.0],
+]
 const HIGHLIGHT_STYLE = {
   color: '#1d4ed8',
   weight: 2,
@@ -26,10 +29,13 @@ export default function RegionMap({ geojson }) {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map)
     L.control.zoom({ position: 'topright' }).addTo(map)
-    map.setView(SRI_LANKA_CENTER, 7)
+    map.fitBounds(SRI_LANKA_BOUNDS, { padding: [24, 24] })
     mapRef.current = map
     const invalidate = () => map.invalidateSize()
-    requestAnimationFrame(invalidate)
+    requestAnimationFrame(() => {
+      map.invalidateSize()
+      map.fitBounds(SRI_LANKA_BOUNDS, { padding: [24, 24] })
+    })
     window.addEventListener('resize', invalidate)
 
     return () => {
