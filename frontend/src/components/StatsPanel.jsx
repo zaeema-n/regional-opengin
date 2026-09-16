@@ -77,7 +77,7 @@ export default function StatsPanel({ region, preview, loading }) {
 
   return (
     <aside
-      className="shrink-0 rounded-lg bg-white/95 p-4 shadow-lg backdrop-blur-sm"
+      className="shrink-0 rounded-lg bg-white/50 p-4 shadow-lg backdrop-blur-md"
       aria-label={`Population and area for ${region.name}`}
     >
       <div className="flex items-start justify-between gap-2">

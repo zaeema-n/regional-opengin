@@ -431,7 +431,7 @@ export default function NavPanel({
   const canNavigate = stack.length > 1
 
   return (
-    <aside className="flex min-h-0 flex-col overflow-auto rounded-lg bg-white/95 p-4 shadow-lg backdrop-blur-sm">
+    <aside className="flex min-h-0 flex-col overflow-auto rounded-lg bg-white/50 p-4 shadow-lg backdrop-blur-md">
       <div className="flex items-start justify-between gap-2">
         <h1 className="text-lg font-semibold text-slate-900">
           {canNavigate ? (

@@ -71,6 +71,13 @@ function paintHover(layer, hoveredId) {
   })
 }
 
+function placeZoomControl(map) {
+  map.getContainer()
+    .querySelectorAll('.leaflet-control-zoom')
+    .forEach((node) => node.remove())
+  L.control.zoom({ position: 'bottomright' }).addTo(map)
+}
+
 export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
@@ -94,7 +101,6 @@ export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map)
-    L.control.zoom({ position: 'bottomright' }).addTo(map)
     map.fitBounds(SRI_LANKA_BOUNDS, { padding: [24, 24] })
     mapRef.current = map
     const invalidate = () => map.invalidateSize()
@@ -113,6 +119,14 @@ export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
       selectedLayerRef.current = null
       outlineLayerRef.current = null
     }
+  }, [])
+
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) {
+      return
+    }
+    placeZoomControl(map)
   }, [])
 
   useEffect(() => {
