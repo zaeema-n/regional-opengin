@@ -203,6 +203,7 @@ def build_entity(
     row: dict[str, str],
     kind: Kind,
     relationships: list[AddRelation] | None = None,
+    metadata: list[dict] | None = None,
 ) -> EntityCreate:
     """Build an OpenGIN create payload from one CSV row (id + name) and a kind."""
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -212,19 +213,23 @@ def build_entity(
         created=now,
         terminated="",
         name=_entity_name(row["name"]),
-        metadata=[],
+        metadata=metadata or [],
         attributes=[],
         relationships=relationships or [],
     )
 
 
 def collect_payloads(
-    node: HierarchyNode, rows_by_file: dict[str, list[dict[str, str]]]
+    node: HierarchyNode,
+    rows_by_file: dict[str, list[dict[str, str]]],
+    geojson_by_id: dict[str, dict] | None = None,
 ) -> list[SeedItem]:
     """Build SeedItems for this node and everything under it, children first.
 
     Recurses into loaded children, then appends this node's own CSV rows.
     Parents get relationships to matching child rows (parent_column == this id).
+    When geojson_by_id is given, each entity whose id has a feature gets
+    geojson metadata on the same create/update payload.
 
     Returns a flat list in insert order. Example country → province → dsd:
     [all DSDs, all provinces, then the country]. Leaves have
@@ -237,7 +242,7 @@ def collect_payloads(
     ]
     # Descend first: items becomes all descendants, deepest first.
     for child in loaded_children:
-        items.extend(collect_payloads(child, rows_by_file))
+        items.extend(collect_payloads(child, rows_by_file, geojson_by_id))
 
     rows = rows_by_file.get(node.file)
     if rows is None:
@@ -257,9 +262,15 @@ def collect_payloads(
                             child.relation, child_row["id"], row["id"]
                         )
                     )
+        feature = geojson_by_id.get(row["id"]) if geojson_by_id else None
         items.append(
             SeedItem(
-                entity=build_entity(row, kind, relationships),
+                entity=build_entity(
+                    row,
+                    kind,
+                    relationships,
+                    geojson_metadata(feature) if feature is not None else None,
+                ),
                 update_on_conflict=is_parent,
             )
         )

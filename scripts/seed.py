@@ -12,7 +12,14 @@ load_dotenv(ROOT / ".env")
 
 from exception import NotFoundError
 from models import Entity, EntityCreate
-from scripts.seed_utils import load_seed_payloads
+from scripts.seed_utils import (
+    HIERARCHY_FILE,
+    SEED_DIR,
+    collect_payloads,
+    load_geojson_index,
+    load_hierarchy,
+    load_rows_for_tree,
+)
 from services import IngestionService, ReadService
 from utils import http_client, logger
 
@@ -36,7 +43,18 @@ async def upsert_entity(
 
 
 async def seed() -> None:
-    items = load_seed_payloads()
+    root = load_hierarchy(SEED_DIR / HIERARCHY_FILE)
+    items = collect_payloads(
+        root,
+        load_rows_for_tree(root, SEED_DIR),
+        load_geojson_index(root, SEED_DIR),
+    )
+    missing_geojson = [item.entity.id for item in items if not item.entity.metadata]
+    if missing_geojson:
+        logger.info(
+            f"Skipping geojson for {len(missing_geojson)} entities with no geometry: "
+            f"{', '.join(missing_geojson)}"
+        )
     read = ReadService()
     ingestion = IngestionService()
 
@@ -45,8 +63,10 @@ async def seed() -> None:
         for item in items:
             entity = item.entity
             status = await upsert_entity(read, ingestion, entity)
+            geo_status = "geojson" if entity.metadata else "no geojson"
             logger.info(
-                f"{entity.kind.minor} {entity.id} ({entity.name.value}): {status}"
+                f"{entity.kind.minor} {entity.id} ({entity.name.value}): "
+                f"{status} / {geo_status}"
             )
     finally:
         await http_client.close()
