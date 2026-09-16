@@ -24,6 +24,9 @@ app = FastAPI(
     description="API adapter to OpenGIN",
     version="1.0.0",
     lifespan=lifespan,
+    # If you really need to call an endpoint which returns geojson in the Swagger UI, 
+    # you can disable syntax highlighting below - note it still may fail to render due to the size of geojson
+    # swagger_ui_parameters={"syntaxHighlight": False},
 )
 
 app.add_middleware(
