@@ -54,7 +54,7 @@ function placeholderRegion(child) {
     id: child.id,
     name: child.name,
     kind: child.kind,
-    geojson: null,
+    geojson: child.geojson ?? null,
     navigations: [],
   }
 }

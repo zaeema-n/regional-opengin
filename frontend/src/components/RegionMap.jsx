@@ -94,7 +94,7 @@ export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map)
-    L.control.zoom({ position: 'topright' }).addTo(map)
+    L.control.zoom({ position: 'bottomright' }).addTo(map)
     map.fitBounds(SRI_LANKA_BOUNDS, { padding: [24, 24] })
     mapRef.current = map
     const invalidate = () => map.invalidateSize()
