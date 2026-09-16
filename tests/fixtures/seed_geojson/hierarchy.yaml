@@ -1,0 +1,4 @@
+major: region
+minor: country
+file: country.csv
+geojson: geojson/country.geojson

@@ -64,11 +64,13 @@ Today that inserts, deepest first:
 
 The seeder looks up each entity by id on the read API first. If it exists, it is updated; otherwise it is created.
 
+After create or update, each entity with a matching GeoJSON feature is sent with metadata key `geojson` whose value is a **one-feature FeatureCollection** (that entity’s feature only, as stored). Updates use `PUT {INGESTION_BASE_URL}/entities/{id}`. Twenty-two postal polling divisions (`EC-01P` … `EC-22P`) have no geometry and are skipped.
+
 ### Seed data
 
 | File | Role |
 | --- | --- |
-| [`data/seed/hierarchy.yaml`](data/seed/hierarchy.yaml) | Kinds and parent→child edges |
+| [`data/seed/hierarchy.yaml`](data/seed/hierarchy.yaml) | Kinds, parent→child edges, and `geojson:` paths |
 | [`data/seed/country.csv`](data/seed/country.csv) | `id,name` |
 | [`data/seed/province.csv`](data/seed/province.csv) | `id,name,country_id` |
 | [`data/seed/district.csv`](data/seed/district.csv) | `id,name,province_id` |
@@ -78,6 +80,7 @@ The seeder looks up each entity by id on the read API first. If it exists, it is
 | [`data/seed/moh.csv`](data/seed/moh.csv) | `id,name,district_id` |
 | [`data/seed/ed.csv`](data/seed/ed.csv) | `id,name,province_id` |
 | [`data/seed/pd.csv`](data/seed/pd.csv) | `id,name,ed_id` |
+| [`data/seed/geojson/`](data/seed/geojson) | One FeatureCollection per level (`country.geojson`, `province.geojson`, …) |
 
 YAML currently:
 
@@ -85,46 +88,55 @@ YAML currently:
 major: region
 minor: country
 file: country.csv
+geojson: geojson/country.geojson
 children:
   - minor: country-level-1+lk-province
     file: province.csv
+    geojson: geojson/province.geojson
     parent_column: country_id
     relation: province
     children:
       - minor: country-level-2+lk-administrative-district
         file: district.csv
+        geojson: geojson/district.geojson
         parent_column: province_id
         relation: administrative_district
         children:
           - minor: country-level-3+lk-divisional-secretariat-division
             file: dsd.csv
+            geojson: geojson/dsd.geojson
             parent_column: district_id
             relation: divisional_secretariat_division
             children:
               - minor: country-level-4+lk-grama-niladhari-division
                 file: gnd.csv
+                geojson: geojson/gnd.geojson
                 parent_column: dsd_id
                 relation: grama_niladhari_division
           - minor: country-level-3+lk-local-government
             file: lg.csv
+            geojson: geojson/lg.geojson
             parent_column: district_id
             relation: local_government
           - minor: country-level-3+lk-medical-officer-of-health
             file: moh.csv
+            geojson: geojson/moh.geojson
             parent_column: district_id
             relation: medical_officer_of_health
       - minor: country-level-2+lk-electoral-district
         file: ed.csv
+        geojson: geojson/ed.geojson
         parent_column: province_id
         relation: electoral_district
         children:
           - minor: country-level-3+lk-electoral-polling-division
             file: pd.csv
+            geojson: geojson/pd.geojson
             parent_column: ed_id
             relation: electoral_polling_division
 ```
 
-To add a level later: append a child in `hierarchy.yaml` and add a CSV under `data/seed/` (`id`, `name`, parent id column). No new Python builders.
+To add a level later: append a child in `hierarchy.yaml` and add a CSV under `data/seed/` (`id`, `name`, parent id column). Optional `geojson:` is a path relative to `data/seed/`; missing field or missing file means no geometry metadata for that level. No new Python builders.
 
 ### Check after seed
 
@@ -144,6 +156,7 @@ With the API (or OpenGIN read) up:
 - `POST /v1/entities/LK-1/relations` with `{ "name": "electoral_district" }` → Colombo, Gampaha, Kalutara EDs
 - `POST /v1/entities/LK-11/relations` with `{ "name": "divisional_secretariat_division" }` → DSDs in Colombo district
 - `POST /v1/entities/LK-1103/relations` with `{ "name": "grama_niladhari_division" }` → GNDs in Colombo DSD
+- `GET /v1/entities/LK/metadata` → key `geojson`, a FeatureCollection whose only feature has id `LK`
 
 ## Tests
 

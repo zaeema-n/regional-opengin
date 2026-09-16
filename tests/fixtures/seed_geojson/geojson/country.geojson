@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "LK",
+      "properties": {
+        "id": "LK",
+        "name": "Sri Lanka"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [80.0, 6.0],
+            [82.0, 6.0],
+            [82.0, 10.0],
+            [80.0, 10.0],
+            [80.0, 6.0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EC-01P",
+      "properties": {
+        "id": "EC-01P",
+        "name": "Postal Votes Colombo"
+      },
+      "geometry": null
+    }
+  ]
+}
