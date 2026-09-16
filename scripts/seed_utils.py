@@ -1,4 +1,5 @@
 import csv
+import json
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -102,6 +103,73 @@ def load_rows_for_tree(
 
     walk(node)
     return rows_by_file
+
+
+def _feature_id(feature: dict) -> str | None:
+    """Return the feature id from Feature.id, else properties.id."""
+    fid = feature.get("id")
+    if fid is None or fid == "":
+        properties = feature.get("properties")
+        if isinstance(properties, dict):
+            fid = properties.get("id")
+    if fid is None or fid == "":
+        return None
+    return str(fid)
+
+
+def load_geojson_index(
+    root: HierarchyNode, seed_dir: Path
+) -> dict[str, dict]:
+    """Walk the YAML tree and index features from each node's GeoJSON file.
+
+    Returns a dict keyed by feature id (feature["id"], else properties.id).
+    Missing geojson fields or missing files are omitted (no metadata for
+    that level). Each file is loaded once. Features with no id or no
+    geometry are skipped (the 22 postal polling divisions EC-01P … EC-22P
+    are absent from pd.geojson for this reason).
+    """
+    index: dict[str, dict] = {}
+    loaded: set[str] = set()
+
+    def walk(current: HierarchyNode) -> None:
+        rel = current.geojson
+        if rel and rel not in loaded:
+            loaded.add(rel)
+            path = seed_dir / rel
+            if path.exists():
+                with path.open(encoding="utf-8") as handle:
+                    data = json.load(handle) or {}
+                for feature in data.get("features") or []:
+                    if not isinstance(feature, dict):
+                        continue
+                    if not feature.get("geometry"):
+                        continue
+                    fid = _feature_id(feature)
+                    if fid is None or fid in index:
+                        continue
+                    index[fid] = feature
+        for child in current.children:
+            walk(child)
+
+    walk(root)
+    return index
+
+
+def geojson_metadata(feature: dict) -> list[dict]:
+    """Wrap one GeoJSON Feature as OpenGIN metadata (key geojson).
+
+    Returns [{"key": "geojson", "value": a FeatureCollection of that feature}].
+    The feature is kept as stored (id, properties, geometry).
+    """
+    return [
+        {
+            "key": "geojson",
+            "value": {
+                "type": "FeatureCollection",
+                "features": [feature],
+            },
+        }
+    ]
 
 
 def _entity_name(value: str) -> NameValue:
