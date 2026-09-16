@@ -9,6 +9,12 @@ from .opengin import (
     NameValue,
     Relation,
 )
+from .regions import (
+    NavigationOption,
+    RegionChildItem,
+    RegionChildren,
+    RegionDetail,
+)
 
 __all__ = [
     "AddRelation",
@@ -19,5 +25,9 @@ __all__ = [
     "EntityCreate",
     "Kind",
     "NameValue",
+    "NavigationOption",
+    "RegionChildItem",
+    "RegionChildren",
+    "RegionDetail",
     "Relation",
 ]

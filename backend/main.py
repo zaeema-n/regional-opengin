@@ -2,10 +2,11 @@ from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
-from routers import opengin_router
+from routers import opengin_router, regions_router
 from utils import http_client
 
 
@@ -25,7 +26,15 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(opengin_router)
+app.include_router(regions_router)
 
 
 @app.get("/health")
