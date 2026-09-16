@@ -132,11 +132,13 @@ export function useRegionStack() {
     const key = childrenKey(parent.region.id, relation)
     const cached = cacheRef.current[key]
     if (cached && childrenHaveMapData(cached)) {
+      setHoveredChild(null)
       setDropdown({ stackIndex, relation, status: 'ready', error: null })
       return
     }
 
     const gen = ++childrenGen.current
+    setHoveredChild(null)
     setDropdown({
       stackIndex,
       relation,

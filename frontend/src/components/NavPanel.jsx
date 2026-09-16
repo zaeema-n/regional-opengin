@@ -62,16 +62,20 @@ function NavigationRow({
           className={`mt-1 max-h-56 overflow-auto rounded-md border bg-white py-1 ${
             selectedId ? 'border-blue-400' : 'border-slate-300'
           }`}
-          onMouseLeave={() => onHover(null)}
-          onBlur={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget)) {
-              onHover(null)
-            }
-          }}
+          onMouseLeave={onHover ? () => onHover(null) : undefined}
+          onBlur={
+            onHover
+              ? (event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) {
+                    onHover(null)
+                  }
+                }
+              : undefined
+          }
         >
           {items.map((item) => {
             const selected = item.id === selectedId
-            const hovered = item.id === hoveredId
+            const hovered = Boolean(onHover) && item.id === hoveredId
             return (
               <button
                 key={item.id}
@@ -85,8 +89,8 @@ function NavigationRow({
                       ? 'bg-blue-50 text-slate-900'
                       : 'text-slate-900 hover:bg-blue-50'
                 }`}
-                onMouseEnter={() => onHover(item)}
-                onFocus={() => onHover(item)}
+                onMouseEnter={onHover ? () => onHover(item) : undefined}
+                onFocus={onHover ? () => onHover(item) : undefined}
                 onClick={() => {
                   if (item.id !== selectedId) {
                     onSelect(item.id)
@@ -208,14 +212,14 @@ export default function NavPanel({
                       nav={nav}
                       items={items}
                       selectedId={isSelectedPath ? next.region.id : ''}
-                      hoveredId={hoveredChildId}
+                      hoveredId={isActive ? hoveredChildId : undefined}
                       status={rowStatus}
                       error={isActive ? dropdown.error : null}
                       onOpen={() => onOpenRelation(index, nav.relation)}
                       onSelect={(childId) =>
                         onSelectChild(index, nav.relation, childId)
                       }
-                      onHover={onHoverChild}
+                      onHover={isActive ? onHoverChild : undefined}
                     />
                   )
                 })}
