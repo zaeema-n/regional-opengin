@@ -8,9 +8,24 @@ body,
 }
 
 .leaflet-region-outlines-pane path {
+  cursor: pointer;
   transition:
     fill 220ms ease,
     fill-opacity 220ms ease,
     stroke 220ms ease,
     stroke-width 220ms ease;
+}
+
+.region-name-tooltip {
+  pointer-events: none;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  color: #9a3412;
+  font-weight: 600;
+  font-size: 12px;
+  box-shadow: 0 1px 4px rgb(15 23 42 / 0.12);
+}
+
+.leaflet-tooltip-top.region-name-tooltip::before {
+  border-top-color: #fdba74;
 }

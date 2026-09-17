@@ -18,6 +18,8 @@ export default function App() {
     openRelation,
     selectChild,
     hoverChild,
+    hoverChildById,
+    selectChildById,
     back,
     reset,
     goTo,
@@ -32,6 +34,8 @@ export default function App() {
         geojson={mapGeojson}
         outlineGeojson={outlineGeojson}
         hoveredId={hoveredChild?.id}
+        onHoverFeature={hoverChildById}
+        onSelectFeature={selectChildById}
       />
       <div className="absolute top-4 left-4 z-1000 flex max-h-[calc(100%-2rem)] w-96 flex-col overflow-hidden">
         <NavPanel

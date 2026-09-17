@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 function childrenKey(parentId, relation) {
   return `${parentId}:${relation}`
@@ -86,6 +86,18 @@ function RegionList({
   onSelect,
   onHover,
 }) {
+  const listRef = useRef(null)
+
+  useEffect(() => {
+    if (!hoveredId || !listRef.current) {
+      return
+    }
+    const option = listRef.current.querySelector(
+      `[data-region-id="${CSS.escape(hoveredId)}"]`,
+    )
+    option?.scrollIntoView({ block: 'nearest' })
+  }, [hoveredId])
+
   if (status === 'loading') {
     return <p className="mt-1 text-sm text-slate-500">Loading…</p>
   }
@@ -111,6 +123,7 @@ function RegionList({
 
   return (
     <div
+      ref={listRef}
       id={fieldId}
       role="listbox"
       aria-label={label}
@@ -137,6 +150,7 @@ function RegionList({
             type="button"
             role="option"
             aria-selected={selected}
+            data-region-id={item.id}
             className={`flex w-full items-center justify-between gap-2 px-3 py-1.5 text-left text-sm ${
               selected
                 ? 'bg-blue-100 font-medium text-blue-900'
@@ -480,7 +494,7 @@ export default function NavPanel({
       {status === 'ready' && (
         <>
           <p className="mt-2 text-xs text-slate-500">
-            Hover over a name to preview it on the map, then click to zoom in.
+            Hover over a name or a map region to preview it, then click to zoom in.
           </p>
           {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
           <div className="mt-3">

@@ -31,13 +31,17 @@ function featureId(feature) {
   return feature?.id ?? feature?.properties?.id ?? null
 }
 
+function featureName(feature) {
+  return feature?.properties?.name ?? null
+}
+
 function outlineStyle(feature, hoveredId) {
   return hoveredId && featureId(feature) === hoveredId
     ? HOVER_STYLE
     : OUTLINE_STYLE
 }
 
-function syncLayer(map, layerRef, geojson, { style, pane, fitBounds = false } = {}) {
+function syncLayer(map, layerRef, geojson, { style, pane, fitBounds = false, interactive = false, onEachFeature } = {}) {
   if (layerRef.current) {
     map.removeLayer(layerRef.current)
     layerRef.current = null
@@ -48,7 +52,8 @@ function syncLayer(map, layerRef, geojson, { style, pane, fitBounds = false } = 
   const layer = L.geoJSON(geojson, {
     style,
     pane,
-    interactive: false,
+    interactive,
+    onEachFeature,
   }).addTo(map)
   layerRef.current = layer
   if (fitBounds) {
@@ -59,6 +64,14 @@ function syncLayer(map, layerRef, geojson, { style, pane, fitBounds = false } = 
   }
 }
 
+function bringHoverToFront(featureLayer) {
+  const el = featureLayer.getElement?.()
+  if (el?.parentNode?.lastChild === el) {
+    return
+  }
+  featureLayer.bringToFront()
+}
+
 function paintHover(layer, hoveredId) {
   if (!layer) {
     return
@@ -66,7 +79,12 @@ function paintHover(layer, hoveredId) {
   layer.eachLayer((featureLayer) => {
     featureLayer.setStyle(outlineStyle(featureLayer.feature, hoveredId))
     if (hoveredId && featureId(featureLayer.feature) === hoveredId) {
-      featureLayer.bringToFront()
+      bringHoverToFront(featureLayer)
+      if (featureLayer.getTooltip()) {
+        featureLayer.openTooltip()
+      }
+    } else if (featureLayer.getTooltip()) {
+      featureLayer.closeTooltip()
     }
   })
 }
@@ -78,16 +96,32 @@ function placeZoomControl(map) {
   L.control.zoom({ position: 'bottomright' }).addTo(map)
 }
 
-export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
+export default function RegionMap({
+  geojson,
+  outlineGeojson,
+  hoveredId,
+  onHoverFeature,
+  onSelectFeature,
+}) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
   const selectedLayerRef = useRef(null)
   const outlineLayerRef = useRef(null)
   const hoveredIdRef = useRef(hoveredId)
+  const onHoverRef = useRef(onHoverFeature)
+  const onSelectRef = useRef(onSelectFeature)
 
   useEffect(() => {
     hoveredIdRef.current = hoveredId
   }, [hoveredId])
+
+  useEffect(() => {
+    onHoverRef.current = onHoverFeature
+  }, [onHoverFeature])
+
+  useEffect(() => {
+    onSelectRef.current = onSelectFeature
+  }, [onSelectFeature])
 
   useEffect(() => {
     if (mapRef.current || !containerRef.current) {
@@ -104,6 +138,7 @@ export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
     map.fitBounds(SRI_LANKA_BOUNDS, { padding: [24, 24] })
     mapRef.current = map
     const invalidate = () => map.invalidateSize()
+    const clearHover = () => onHoverRef.current?.(null)
     requestAnimationFrame(() => {
       map.invalidateSize()
       if (!selectedLayerRef.current) {
@@ -111,9 +146,11 @@ export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
       }
     })
     window.addEventListener('resize', invalidate)
+    map.getContainer().addEventListener('mouseleave', clearHover)
 
     return () => {
       window.removeEventListener('resize', invalidate)
+      map.getContainer().removeEventListener('mouseleave', clearHover)
       map.remove()
       mapRef.current = null
       selectedLayerRef.current = null
@@ -149,6 +186,42 @@ export default function RegionMap({ geojson, outlineGeojson, hoveredId }) {
     syncLayer(map, outlineLayerRef, outlineGeojson, {
       style: (feature) => outlineStyle(feature, hoveredIdRef.current),
       pane: 'region-outlines',
+      interactive: true,
+      onEachFeature: (feature, layer) => {
+        const id = featureId(feature)
+        const name = featureName(feature)
+        if (name) {
+          layer.bindTooltip(name, {
+            sticky: true,
+            direction: 'top',
+            opacity: 0.95,
+            className: 'region-name-tooltip',
+          })
+        }
+        layer.on({
+          mouseover: () => {
+            if (id) {
+              onHoverRef.current?.(id)
+            }
+          },
+          mouseout: (event) => {
+            const related = event.originalEvent?.relatedTarget
+            if (
+              !related ||
+              related.closest?.('.leaflet-region-outlines-pane')
+            ) {
+              return
+            }
+            onHoverRef.current?.(null)
+          },
+          click: (event) => {
+            L.DomEvent.stopPropagation(event)
+            if (id) {
+              onSelectRef.current?.(id)
+            }
+          },
+        })
+      },
     })
     paintHover(outlineLayerRef.current, hoveredIdRef.current)
   }, [outlineGeojson])

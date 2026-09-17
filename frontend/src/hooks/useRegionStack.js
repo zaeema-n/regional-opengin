@@ -33,7 +33,18 @@ function collectFeatures(geojson) {
 }
 
 function mergeChildGeojson(items) {
-  const features = items.flatMap((item) => collectFeatures(item.geojson))
+  const features = items.flatMap((item) =>
+    collectFeatures(item.geojson).map((feature) => ({
+      type: 'Feature',
+      id: item.id,
+      properties: {
+        ...(feature.properties ?? {}),
+        id: item.id,
+        name: item.name,
+      },
+      geometry: feature.geometry,
+    })),
+  )
   if (features.length === 0) {
     return null
   }
@@ -70,13 +81,15 @@ export function useRegionStack() {
 
   const stackRef = useRef(stack)
   const cacheRef = useRef(childrenCache)
+  const dropdownRef = useRef(dropdown)
   const opGen = useRef(0)
   const childrenGen = useRef(0)
 
   useEffect(() => {
     stackRef.current = stack
     cacheRef.current = childrenCache
-  }, [stack, childrenCache])
+    dropdownRef.current = dropdown
+  }, [stack, childrenCache, dropdown])
 
   const loadRoot = useCallback(() => {
     const gen = ++opGen.current
@@ -273,6 +286,37 @@ export function useRegionStack() {
     setStack(nextStack)
   }, [])
 
+  const hoverChildById = useCallback((childId) => {
+    if (!childId) {
+      setHoveredChild(null)
+      return
+    }
+    const drop = dropdownRef.current
+    const parent = drop ? stackRef.current[drop.stackIndex] : null
+    if (!drop || !parent) {
+      setHoveredChild(null)
+      return
+    }
+    const items =
+      cacheRef.current[childrenKey(parent.region.id, drop.relation)] ?? []
+    setHoveredChild(items.find((item) => item.id === childId) ?? null)
+  }, [])
+
+  const selectChildById = useCallback(
+    (childId) => {
+      const drop = dropdownRef.current
+      if (!drop || !childId) {
+        return
+      }
+      const next = stackRef.current[drop.stackIndex + 1]
+      if (next?.region.id === childId && next.relation === drop.relation) {
+        return
+      }
+      return selectChild(drop.stackIndex, drop.relation, childId)
+    },
+    [selectChild],
+  )
+
   const selectedRegion = stack.at(-1)?.region ?? null
 
   const mapGeojson = useMemo(() => {
@@ -312,6 +356,8 @@ export function useRegionStack() {
     openRelation,
     selectChild,
     hoverChild: setHoveredChild,
+    hoverChildById,
+    selectChildById,
     back,
     reset,
     goTo,
