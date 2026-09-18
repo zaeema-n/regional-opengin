@@ -1,0 +1,10 @@
+kind:
+  major: Category
+  minor: DataCategory
+relation: AS_CATEGORY
+datasets:
+  - file: stats/population-gender.regions.2012.tsv
+    id: population-gender
+    name: Region Population by Gender
+    attribute: Population by Gender
+    date: "2012-01-01"

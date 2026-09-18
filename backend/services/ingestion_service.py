@@ -18,17 +18,25 @@ from utils.response_handler import handle_api_response
 load_dotenv()
 INGESTION_BASE_URL = os.getenv("INGESTION_BASE_URL")
 
+def _error_text(exception: Exception) -> str:
+    detail = getattr(exception, "detail", None)
+    return str(detail if detail is not None else exception)
+
+
 def custom_retry_predicate(exception: Exception) -> bool:
     """
     Determine if the request should be retried based on the exception type.
     Returns False for BadRequestError to skip retries.
+    Duplicate-id 500s are not retried (OpenGIN reports "already exists" as 500).
     """
     if isinstance(exception, (BadRequestError, NotFoundError)):
         return False
-    
+    if isinstance(exception, InternalServerError) and "already exists" in _error_text(
+        exception
+    ).lower():
+        return False
     if isinstance(exception, (InternalServerError, ServiceUnavailableError, GatewayTimeoutError)):
         return True
-    
     return False
 
 api_retry_decorator = retry_async.AsyncRetry(
@@ -63,7 +71,7 @@ class IngestionService:
     async def update_entity(self, entity_id: str, entity: EntityCreate):
         url = f"{INGESTION_BASE_URL}/entities/{entity_id}"
         headers = {"Content-Type": "application/json"}
-        payload = entity.model_dump()
+        payload = entity.model_dump(exclude_unset=True)
         # Include the id in the payload as required by the API
         payload["id"] = entity_id
 

@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv(ROOT / ".env")
 
 from exception import NotFoundError
-from models import Entity, EntityCreate
+from models import Entity, EntityCreate, Kind
 from scripts.seed_utils import (
     HIERARCHY_FILE,
     SEED_DIR,
@@ -24,9 +24,12 @@ from services import IngestionService, ReadService
 from utils import http_client, logger
 
 
-async def _entity_exists(read: ReadService, entity_id: str) -> bool:
+async def _entity_exists(
+    read: ReadService, entity_id: str, kind: Kind | None = None
+) -> bool:
+    query = Entity(id=entity_id, kind=kind) if kind is not None else Entity(id=entity_id)
     try:
-        matches = await read.get_entities(Entity(id=entity_id))
+        matches = await read.get_entities(query)
     except NotFoundError:
         return False
     return any(match.id == entity_id for match in matches)

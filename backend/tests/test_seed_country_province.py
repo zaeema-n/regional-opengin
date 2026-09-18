@@ -157,3 +157,5 @@ def test_seed_csvs_map_to_full_region_hierarchy_payloads():
         assert rel.key == relation_id
         assert rel.value.id == relation_id
         assert rel.value.name == "province"
+        assert rel.value.startTime == "1970-01-01T00:00:00Z"
+        assert rel.value.endTime == ""

@@ -57,7 +57,7 @@ class ReadService:
     async def get_entities(self, entity: Entity):
         url = f"{READ_BASE_URL}/v1/entities/search"
         headers = {"Content-Type": "application/json"}
-        payload = entity.model_dump()
+        payload = entity.model_dump(exclude_unset=True)
 
         async with self.session.post(url, json=payload, headers=headers) as response:
             res_json = await handle_api_response(response, error_prefix="Failed to get entities")

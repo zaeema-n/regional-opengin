@@ -185,14 +185,15 @@ def child_relation(
     key is the unique relationship id (not the relation name) so multiple
     outgoing edges of the same type survive one OpenGIN update.
     """
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    startTime = "1970-01-01T00:00:00Z"
+    endTime = ""
     relation_id = f"{parent_entity_id}-{name}-{related_entity_id}"
     return AddRelation(
         key=relation_id,
         value=AddRelationValue(
             relatedEntityId=related_entity_id,
-            startTime=now,
-            endTime="",
+            startTime=startTime,
+            endTime=endTime,
             id=relation_id,
             name=name,
         ),

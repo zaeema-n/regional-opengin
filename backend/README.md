@@ -160,6 +160,50 @@ With the API (or OpenGIN read) up:
 - `POST /v1/entities/LK-1103/relations` with `{ "name": "grama_niladhari_division" }` → GNDs in Colombo DSD
 - `GET /v1/entities/LK/metadata` → key `geojson`, a FeatureCollection whose only feature has id `LK`
 
+## Seed stats
+
+Seed **regions first** (`python scripts/seed.py`). Stats seed assumes those entities already exist. It talks to OpenGIN the same way (`.env` `READ_BASE_URL` / `INGESTION_BASE_URL`); uvicorn is not required.
+
+From the repo root:
+
+```bash
+python scripts/seed_stats.py
+```
+
+That reads [`data/seed/stats.yaml`](data/seed/stats.yaml). For each dataset it:
+
+1. Parses the TSV and searches OpenGIN for every `entity_id`
+2. Keeps a row only when that region exists (empty / `None` ids and missing nodes such as unseeded `LG-*` census ids are skipped)
+3. Upserts one hub entity with those kept rows (`date` is a column on each row, not in the hub id or name)
+4. PUTs an outgoing `AS_CATEGORY` edge from each kept region to the hub (relationship id `{regionId}-AS_CATEGORY-{hubId}`)
+
+Re-runs are idempotent: the hub table is written again, then the same region edges are PUT.
+
+YAML currently:
+
+```yaml
+kind:
+  major: Category
+  minor: DataCategory
+relation: AS_CATEGORY
+datasets:
+  - file: stats/population-gender.regions.2012.tsv
+    id: population-gender
+    name: Region Population by Gender
+    attribute: Population by Gender
+    date: "2012-01-01"
+```
+
+`kind` and `relation` apply to every hub in the file. Each `datasets` entry is one TSV → one hub (or another year of the same hub). `file` is relative to `data/seed/`. `date` is injected on kept rows only.
+
+To add another TSV, append an entry under `datasets`. A later census year of the same topic reuses `id` / `name` / `attribute` and sets a new `file` and `date`. Other files under [`data/seed/stats/`](data/seed/stats/) stay unused until listed.
+
+### Check after stats seed
+
+- Search `kind.major=Category`, `kind.minor=DataCategory` → `population-gender`
+- `POST /v1/entities/LK/relations` with `{ "name": "AS_CATEGORY", "direction": "OUTGOING" }` → the gender hub
+- `POST /v1/entities/population-gender/attributes/Population by Gender` with filters on `entity_id` (and optionally `date`) → that region’s row
+
 ## Tests
 
 ```bash
