@@ -2,6 +2,24 @@ function formatHeader(name) {
   return String(name).replaceAll('_', ' ')
 }
 
+function columnKey(name) {
+  return String(name)
+    .trim()
+    .toLowerCase()
+    .replaceAll(/[\s_-]+/g, '')
+}
+
+function isHiddenColumn(name) {
+  const key = columnKey(name)
+  return key === 'id' || key === 'entityid' || key === 'date'
+}
+
+function visibleColumns(columns) {
+  return columns
+    .map((column, index) => ({ column, index }))
+    .filter(({ column }) => !isHiddenColumn(column))
+}
+
 function numericValue(value) {
   if (typeof value === 'number' && Number.isFinite(value)) {
     return value
@@ -30,7 +48,7 @@ function formatCell(value) {
 }
 
 function DatasetTable({ dataset }) {
-  const columns = dataset.columns ?? []
+  const columns = visibleColumns(dataset.columns ?? [])
   const rows = dataset.rows ?? []
 
   return (
@@ -43,7 +61,7 @@ function DatasetTable({ dataset }) {
           <table className="w-full min-w-max border-collapse text-left text-xs">
             <thead>
               <tr>
-                {columns.map((column) => (
+                {columns.map(({ column }) => (
                   <th
                     key={column}
                     className="border-b border-slate-200 px-2 py-1 font-semibold tracking-wide text-slate-500 uppercase"
@@ -56,8 +74,8 @@ function DatasetTable({ dataset }) {
             <tbody>
               {rows.map((row, rowIndex) => (
                 <tr key={rowIndex}>
-                  {columns.map((column, columnIndex) => {
-                    const value = row[columnIndex]
+                  {columns.map(({ column, index }) => {
+                    const value = row[index]
                     const numeric = numericValue(value) != null
                     return (
                       <td
