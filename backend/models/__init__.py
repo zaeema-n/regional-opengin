@@ -15,12 +15,19 @@ from .regions import (
     RegionChildren,
     RegionDetail,
 )
+from .stats import (
+    DatasetSummary,
+    DatasetTable,
+    RegionStats,
+)
 
 __all__ = [
     "AddRelation",
     "AddRelationValue",
     "AttributeFilterRecord",
     "AttributeFilterRecords",
+    "DatasetSummary",
+    "DatasetTable",
     "Entity",
     "EntityCreate",
     "Kind",
@@ -29,5 +36,6 @@ __all__ = [
     "RegionChildItem",
     "RegionChildren",
     "RegionDetail",
+    "RegionStats",
     "Relation",
 ]
