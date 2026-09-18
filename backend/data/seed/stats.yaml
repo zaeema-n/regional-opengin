@@ -8,3 +8,13 @@ datasets:
     name: Region Population by Gender
     attribute: Population by Gender
     date: "2012-01-01"
+  - file: stats/population-ethnicity.regions.2012.tsv
+    id: population-ethnicity
+    name: Region Population by Ethnicity
+    attribute: Population by Ethnicity
+    date: "2012-01-01"
+  - file: stats/population-religion.regions.2012.tsv
+    id: population-religion
+    name: Region Population by Religion
+    attribute: Population by Religion
+    date: "2012-01-01"

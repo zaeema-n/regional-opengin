@@ -1,5 +1,6 @@
 import asyncio
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,11 +57,14 @@ async def put_as_category_edges(
     region_ids: list[str],
     hub_id: str,
     relation: str,
+    region_locks: dict[str, asyncio.Lock] | None = None,
 ) -> None:
     """PUT one outgoing AS_CATEGORY edge per kept region (relationship-only)."""
+    locks = region_locks if region_locks is not None else defaultdict(asyncio.Lock)
     for region_id in region_ids:
         payload = region_edge_payload(region_id, hub_id, relation)
-        await ingestion.update_entity(region_id, payload)
+        async with locks[region_id]:
+            await ingestion.update_entity(region_id, payload)
         logger.info(f"{region_id} {relation} {hub_id}: updated")
 
 
@@ -91,8 +95,10 @@ async def seed_dataset(
     config: StatsConfig,
     dataset: StatsDataset,
     seed_dir: Path = SEED_DIR,
+    region_locks: dict[str, asyncio.Lock] | None = None,
 ) -> None:
     """Search TSV ids, upsert the hub with kept rows, then PUT region edges."""
+    logger.info(f"Seeding {dataset.id} ({dataset.name})")
     columns, rows = read_stats_tsv(seed_dir / dataset.file)
     kept_rows = await collect_kept_rows(read, columns, rows)
     table = table_from_kept_rows(columns, kept_rows, dataset.date)
@@ -105,18 +111,40 @@ async def seed_dataset(
     region_ids = list(
         dict.fromkeys(row_entity_id(columns, row) for row in kept_rows)
     )
-    await put_as_category_edges(ingestion, region_ids, dataset.id, config.relation)
+    await put_as_category_edges(
+        ingestion, region_ids, dataset.id, config.relation, region_locks
+    )
+
+
+def _datasets_by_hub(datasets: list[StatsDataset]) -> list[list[StatsDataset]]:
+    """Group yaml entries that write the same hub so years of one table stay serial."""
+    grouped: dict[str, list[StatsDataset]] = {}
+    for dataset in datasets:
+        grouped.setdefault(dataset.id, []).append(dataset)
+    return list(grouped.values())
 
 
 async def seed_stats(seed_dir: Path = SEED_DIR) -> None:
     config = load_stats_config(seed_dir / "stats.yaml")
     read = ReadService()
     ingestion = IngestionService()
+    region_locks: dict[str, asyncio.Lock] = defaultdict(asyncio.Lock)
+    hub_groups = _datasets_by_hub(config.datasets)
 
     await http_client.start()
     try:
-        for dataset in config.datasets:
-            await seed_dataset(read, ingestion, config, dataset, seed_dir)
+        logger.info(
+            f"Seeding {len(config.datasets)} dataset(s) "
+            f"across {len(hub_groups)} table(s) in parallel"
+        )
+
+        async def seed_hub_group(datasets: list[StatsDataset]) -> None:
+            for dataset in datasets:
+                await seed_dataset(
+                    read, ingestion, config, dataset, seed_dir, region_locks
+                )
+
+        await asyncio.gather(*(seed_hub_group(group) for group in hub_groups))
     finally:
         await http_client.close()
 

@@ -46,9 +46,19 @@ function formatCount(value) {
 }
 
 function formatPercent(value) {
-  return `${new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 1,
-  }).format(value)}%`
+  const formatted = (digits) =>
+    new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: digits,
+    }).format(value)
+
+  let text = formatted(1)
+  if (value > 0 && Number(text) === 0) {
+    text = formatted(3)
+  }
+  if (value > 0 && Number(text) === 0) {
+    return '<0.001%'
+  }
+  return `${text}%`
 }
 
 const SLICE_COLORS = [
@@ -80,6 +90,7 @@ function categorySlices(columns, row) {
       value: n,
     })
   }
+  items.sort((a, b) => b.value - a.value)
   const total = items.reduce((sum, item) => sum + item.value, 0)
   return items.map((item, index) => ({
     ...item,
