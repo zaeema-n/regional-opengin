@@ -42,6 +42,17 @@ This app forwards to OpenGIN:
 | POST | `/entities` |
 | PUT | `/entities/{id}` |
 
+Composed region routes (OpenGIN reads assembled for the map UI, not proxies):
+
+| Method | Path | Response |
+| --- | --- | --- |
+| GET | `/v1/regions/root` | Country entity, geojson, navigations |
+| GET | `/v1/regions/{region_id}` | One region |
+| GET | `/v1/regions/{region_id}/children` | Child dropdown; `relation` query required |
+| GET | `/v1/regions/{region_id}/stats` | DataCategory tables for that region |
+
+`GET /v1/regions/{region_id}/stats` is meant for the data panel CTA (not hover). It loads outgoing `AS_CATEGORY` from `stats.yaml`, keeps hubs whose kind matches yaml (`Category` / `DataCategory`), maps each hub id to its tabular attribute, and reads that attribute filtered to `entity_id={region_id}`. Response shape: `{ "region_id", "datasets": [{ "id", "name", "kind", "attribute", "columns", "rows" }] }`. Empty relations or unmatched hubs return `"datasets": []`; a failed table is returned as empty columns/rows so one hub cannot fail the panel.
+
 ## Seed regions
 
 The seeder talks to **OpenGIN ingestion** (`INGESTION_BASE_URL`) directly. You do not need uvicorn running for seed.
@@ -203,6 +214,7 @@ To add another TSV, append an entry under `datasets`. A later census year of the
 - Search `kind.major=Category`, `kind.minor=DataCategory` → `population-gender`
 - `POST /v1/entities/LK/relations` with `{ "name": "AS_CATEGORY", "direction": "OUTGOING" }` → the gender hub
 - `POST /v1/entities/population-gender/attributes/Population by Gender` with filters on `entity_id` (and optionally `date`) → that region’s row
+- `GET /v1/regions/LK-1/stats` → `population-gender` dataset with columns/rows filtered to Western Province
 
 ## Tests
 

@@ -1,12 +1,13 @@
 from fastapi import APIRouter, Query
 
-from models import RegionChildren, RegionDetail
-from services import RegionService
+from models import RegionChildren, RegionDetail, RegionStats
+from services import RegionService, StatsService
 
 from .opengin import read_service
 
 router = APIRouter()
 region_service = RegionService(read_service=read_service)
+stats_service = StatsService(read_service=read_service)
 
 
 @router.get("/v1/regions/root", response_model=RegionDetail)
@@ -25,6 +26,11 @@ async def get_region_children(
     include_geojson: bool = Query(default=False),
 ):
     return await region_service.get_children(region_id, relation, include_geojson)
+
+
+@router.get("/v1/regions/{region_id}/stats", response_model=RegionStats)
+async def get_region_stats(region_id: str):
+    return await stats_service.get_region_stats(region_id)
 
 
 @router.get("/v1/regions/{region_id}", response_model=RegionDetail)
